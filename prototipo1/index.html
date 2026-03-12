@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StoreOS — Prototipo</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+
+<!-- ════════════════════════════════════════════
+     LOGIN
+════════════════════════════════════════════ -->
+<div id="screen-login">
+  <div class="login-card">
+    <div class="login-logo">Store<span>OS</span></div>
+    <div class="login-sub">Sistema de gestión de tienda · Prototipo</div>
+
+    <div class="role-grid">
+      <button class="role-btn active-owner" onclick="selectRole('owner',this)" id="rb-owner">
+        <span class="icon">👑</span><span class="label">Dueño</span>
+      </button>
+      <button class="role-btn" onclick="selectRole('employee',this)" id="rb-employee">
+        <span class="icon">🧑‍💼</span><span class="label">Empleado</span>
+      </button>
+      <button class="role-btn" onclick="selectRole('customer',this)" id="rb-customer">
+        <span class="icon">🛒</span><span class="label">Cliente</span>
+      </button>
+    </div>
+
+    <div class="form-group">
+      <label>USUARIO</label>
+      <input type="text" placeholder="usuario@tienda.com" value="carlos@tienda.com">
+    </div>
+    <div class="form-group">
+      <label>CONTRASEÑA</label>
+      <input type="password" value="••••••••">
+    </div>
+    <button class="btn-login" id="login-btn" onclick="login()">
+      Ingresar como Dueño →
+    </button>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     APP — DUEÑO
+════════════════════════════════════════════ -->
+<div class="app" id="app-owner">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="topbar-logo">Store<span>OS</span></div>
+    <nav class="topbar-nav">
+      <button class="nav-item active" onclick="showPanel('owner','dashboard',this)">📊 Dashboard</button>
+      <button class="nav-item"        onclick="showPanel('owner','inventory',this)">📦 Inventario</button>
+      <button class="nav-item"        onclick="showPanel('owner','kardex',this)">📒 Kardex</button>
+      <button class="nav-item"        onclick="showPanel('owner','sales',this)">💰 Ventas</button>
+      <button class="nav-item"        onclick="showPanel('owner','prices',this)">🏷️ Precios</button>
+      <button class="nav-item"        onclick="showPanel('owner','orders',this)">📋 Pedidos</button>
+      <button class="nav-item"        onclick="showPanel('owner','clients',this)">👥 Clientes</button>
+    </nav>
+    <div class="topbar-right">
+      <div class="badge-notif" title="Notificaciones" onclick="showPanel('owner','dashboard',document.querySelector('#app-owner .nav-item'))">
+        🔔<div class="badge-dot"></div>
+      </div>
+      <div class="avatar owner">CA</div>
+      <button class="logout-btn" onclick="logout()">← Salir</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- ───────────────────────────────────────
+         PANEL: DASHBOARD
+    ─────────────────────────────────────── -->
+    <div class="panel active" id="owner-dashboard">
+      <div class="page-title">Buenos días, Carlos 👋</div>
+      <div class="page-sub">Resumen del día — 12 de marzo, 2026</div>
+
+      <!-- KPIs -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="s-icon">💵</div>
+          <div class="s-val">Q 4,820</div>
+          <div class="s-label">Ventas hoy</div>
+          <div class="s-delta delta-up">▲ 12% vs ayer</div>
+          <div class="sparkline">
+            <div class="spark-bar" style="height:40%"></div><div class="spark-bar" style="height:60%"></div>
+            <div class="spark-bar" style="height:50%"></div><div class="spark-bar" style="height:75%"></div>
+            <div class="spark-bar" style="height:65%"></div><div class="spark-bar" style="height:90%"></div>
+            <div class="spark-bar" style="height:80%"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon">📦</div>
+          <div class="s-val">247</div>
+          <div class="s-label">Productos en stock</div>
+          <div class="s-delta delta-down">▼ 8 agotados / bajos</div>
+          <div class="sparkline">
+            <div class="spark-bar" style="height:70%"></div><div class="spark-bar" style="height:65%"></div>
+            <div class="spark-bar" style="height:60%"></div><div class="spark-bar" style="height:58%"></div>
+            <div class="spark-bar" style="height:55%"></div><div class="spark-bar" style="height:52%"></div>
+            <div class="spark-bar" style="height:50%"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon">🧾</div>
+          <div class="s-val">38</div>
+          <div class="s-label">Pedidos del día</div>
+          <div class="s-delta delta-up">▲ 5 mayoristas</div>
+          <div class="sparkline">
+            <div class="spark-bar" style="height:30%"></div><div class="spark-bar" style="height:45%"></div>
+            <div class="spark-bar" style="height:55%"></div><div class="spark-bar" style="height:60%"></div>
+            <div class="spark-bar" style="height:70%"></div><div class="spark-bar" style="height:75%"></div>
+            <div class="spark-bar" style="height:85%"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon">⚠️</div>
+          <div class="s-val">6</div>
+          <div class="s-label">Alertas de stock bajo</div>
+          <div class="s-delta delta-down">Requieren atención</div>
+          <div class="sparkline">
+            <div class="spark-bar" style="height:20%"></div><div class="spark-bar" style="height:30%"></div>
+            <div class="spark-bar" style="height:25%"></div><div class="spark-bar" style="height:40%"></div>
+            <div class="spark-bar" style="height:55%"></div><div class="spark-bar" style="height:65%"></div>
+            <div class="spark-bar" style="height:80%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-with-aside">
+        <div>
+          <!-- Gráfica de barras -->
+          <div class="card" style="margin-bottom:16px">
+            <div class="card-title">📈 Tendencia de ventas (últimos 7 días)</div>
+            <div class="chart-bars">
+              <div class="bar-wrap"><div class="bar" style="height:55%;background:var(--owner-light)"></div><div class="bar-label">L</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:70%;background:var(--owner-light)"></div><div class="bar-label">M</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:60%;background:var(--owner-light)"></div><div class="bar-label">X</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:85%;background:var(--owner-light)"></div><div class="bar-label">J</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:90%;background:var(--owner-light)"></div><div class="bar-label">V</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:75%;background:var(--owner-light)"></div><div class="bar-label">S</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:100%;background:var(--owner-mid)"></div><div class="bar-label">D</div></div>
+            </div>
+          </div>
+
+          <!-- Más vendidos -->
+          <div class="card">
+            <div class="card-title">🏆 Productos más vendidos hoy</div>
+            <div class="progress-row"><div class="progress-label">Azúcar 50lb</div><div class="progress-track"><div class="progress-fill" style="width:88%"></div></div><div class="progress-val">Q 1,240</div></div>
+            <div class="progress-row"><div class="progress-label">Aceite Ideal 1L</div><div class="progress-track"><div class="progress-fill" style="width:72%"></div></div><div class="progress-val">Q 980</div></div>
+            <div class="progress-row"><div class="progress-label">Arroz Brillante</div><div class="progress-track"><div class="progress-fill" style="width:65%"></div></div><div class="progress-val">Q 760</div></div>
+            <div class="progress-row"><div class="progress-label">Maíz amarillo</div><div class="progress-track"><div class="progress-fill" style="width:50%"></div></div><div class="progress-val">Q 590</div></div>
+            <div class="progress-row"><div class="progress-label">Jabón Dove</div><div class="progress-track"><div class="progress-fill" style="width:38%"></div></div><div class="progress-val">Q 430</div></div>
+          </div>
+        </div>
+
+        <!-- Alertas laterales -->
+        <div class="aside-alerts">
+          <div class="card-title" style="margin-bottom:0">🔔 Alertas recientes</div>
+          <div class="alert-item crit">
+            <div class="a-icon">🔴</div>
+            <div><div class="a-title">Azúcar 50lb — AGOTADO</div><div class="a-text">0 unidades. Reordenar con Guatelinda.</div></div>
+          </div>
+          <div class="alert-item warn">
+            <div class="a-icon">🟡</div>
+            <div><div class="a-title">Aceite Ideal 1L — bajo</div><div class="a-text">5 unidades restantes. Mínimo: 20.</div></div>
+          </div>
+          <div class="alert-item warn">
+            <div class="a-icon">🟡</div>
+            <div><div class="a-title">Arroz Brillante — bajo</div><div class="a-text">8 unidades restantes.</div></div>
+          </div>
+          <div class="alert-item warn">
+            <div class="a-icon">🟡</div>
+            <div><div class="a-title">Producto sin factura</div><div class="a-text">Venta #1038 — Café Montaña ×3 sin factura emitida.</div></div>
+          </div>
+          <div class="alert-item ok">
+            <div class="a-icon">✅</div>
+            <div><div class="a-title">Pago confirmado</div><div class="a-text">Distribuidora García — Q 2,400.</div></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /dashboard -->
+
+
+    <!-- ───────────────────────────────────────
+         PANEL: INVENTARIO
+    ─────────────────────────────────────── -->
+    <div class="panel" id="owner-inventory">
+      <div class="page-title">📦 Inventario</div>
+      <div class="page-sub">Control de existencias por producto y bodega</div>
+
+      <div class="alert-banner alert-warn">⚠️ <strong>6 productos</strong> están por debajo del stock mínimo. Revisar antes de fin de día.</div>
+
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:flex-end">
+        <div class="inp-group" style="flex:1"><input placeholder="🔍  Buscar producto, marca, lote…"></div>
+        <div class="inp-group">
+          <label>Bodega</label>
+          <select style="width:140px">
+            <option>Todas</option><option>Bodega Principal</option><option>Bodega Norte</option><option>Bodega Sur</option>
+          </select>
+        </div>
+        <button class="btn btn-owner" onclick="openModal('modal-add-product')">+ Agregar producto</button>
+      </div>
+
+      <div class="card" style="padding:0">
+        <table class="tbl">
+          <thead><tr>
+            <th>Producto</th><th>Categoría</th><th>Bodega</th><th>Stock</th><th>Mín.</th><th>Precio unit.</th><th>Estado</th><th></th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Azúcar 50lb</strong></td><td>Granos</td>
+              <td><span class="bodega-tag">Principal</span></td>
+              <td style="font-family:'DM Mono',monospace">0</td><td>10</td>
+              <td style="font-family:'DM Mono',monospace">Q 120.00</td>
+              <td><span class="chip chip-danger">🔴 Agotado</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="showPanel('owner','kardex',document.querySelectorAll('#app-owner .nav-item')[2])">Ver Kardex</button></td>
+            </tr>
+            <tr>
+              <td><strong>Aceite Ideal 1L</strong></td><td>Aceites</td>
+              <td><span class="bodega-tag">Principal</span></td>
+              <td style="font-family:'DM Mono',monospace">5</td><td>20</td>
+              <td style="font-family:'DM Mono',monospace">Q 38.50</td>
+              <td><span class="chip chip-warn">🟡 Bajo</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="showPanel('owner','kardex',document.querySelectorAll('#app-owner .nav-item')[2])">Ver Kardex</button></td>
+            </tr>
+            <tr>
+              <td><strong>Arroz Brillante 1lb</strong></td><td>Granos</td>
+              <td><span class="bodega-tag">Norte</span></td>
+              <td style="font-family:'DM Mono',monospace">8</td><td>15</td>
+              <td style="font-family:'DM Mono',monospace">Q 7.50</td>
+              <td><span class="chip chip-warn">🟡 Bajo</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px">Ver Kardex</button></td>
+            </tr>
+            <tr>
+              <td><strong>Jabón Dove 90g</strong></td><td>Higiene</td>
+              <td><span class="bodega-tag">Sur</span></td>
+              <td style="font-family:'DM Mono',monospace">34</td><td>20</td>
+              <td style="font-family:'DM Mono',monospace">Q 18.00</td>
+              <td><span class="chip chip-ok">🟢 OK</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px">Ver Kardex</button></td>
+            </tr>
+            <tr>
+              <td><strong>Sal Marina 500g</strong></td><td>Condimentos</td>
+              <td><span class="bodega-tag">Principal</span></td>
+              <td style="font-family:'DM Mono',monospace">52</td><td>15</td>
+              <td style="font-family:'DM Mono',monospace">Q 4.50</td>
+              <td><span class="chip chip-ok">🟢 OK</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px">Ver Kardex</button></td>
+            </tr>
+            <tr>
+              <td><strong>Frijol negro 1lb</strong></td><td>Granos</td>
+              <td><span class="bodega-tag">Norte</span></td>
+              <td style="font-family:'DM Mono',monospace">28</td><td>20</td>
+              <td style="font-family:'DM Mono',monospace">Q 9.00</td>
+              <td><span class="chip chip-ok">🟢 OK</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px">Ver Kardex</button></td>
+            </tr>
+            <tr>
+              <td><strong>Café Montaña 250g</strong></td><td>Bebidas</td>
+              <td><span class="bodega-tag">Sur</span></td>
+              <td style="font-family:'DM Mono',monospace">19</td><td>10</td>
+              <td style="font-family:'DM Mono',monospace">Q 28.00</td>
+              <td><span class="chip chip-ok">🟢 OK</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px">Ver Kardex</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /inventory -->
+
+
+    <!-- ───────────────────────────────────────
+         PANEL: KARDEX
+    ─────────────────────────────────────── -->
+    <div class="panel" id="owner-kardex">
+      <div class="page-title">📒 Kardex</div>
+      <div class="page-sub">Historial de entradas, salidas y saldo de cada producto</div>
+
+      <div class="alert-banner alert-info">ℹ️ El Kardex registra automáticamente cada venta e ingreso. Los productos marcados en rojo tienen movimientos sin factura asociada.</div>
+
+      <!-- Filtros -->
+      <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:flex-end">
+        <div class="inp-group" style="flex:1"><label>Producto</label><input placeholder="Buscar producto…" value="Azúcar 50lb"></div>
+        <div class="inp-group"><label>Bodega</label><select style="width:140px"><option>Todas</option><option selected>Principal</option><option>Norte</option><option>Sur</option></select></div>
+        <div class="inp-group"><label>Desde</label><input type="date" style="width:145px" value="2026-03-01"></div>
+        <div class="inp-group"><label>Hasta</label><input type="date" style="width:145px" value="2026-03-12"></div>
+        <button class="btn btn-owner">🔍 Aplicar</button>
+        <button class="btn btn-outline">⬇ Exportar</button>
+      </div>
+
+      <!-- Resumen de saldo -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px">
+        <div class="stat-card">
+          <div class="s-icon">📥</div>
+          <div class="s-val">120</div>
+          <div class="s-label">Total entradas (mes)</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon">📤</div>
+          <div class="s-val">120</div>
+          <div class="s-label">Total salidas (mes)</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-icon">🏷️</div>
+          <div class="s-val">0</div>
+          <div class="s-label">Saldo actual</div>
+          <div class="s-delta delta-down">⚠️ Agotado</div>
+        </div>
+      </div>
+
+      <!-- Tabla Kardex -->
+      <div class="card" style="padding:0">
+        <table class="tbl">
+          <thead><tr>
+            <th>Fecha</th><th>Tipo</th><th>Descripción</th><th>Bodega</th>
+            <th>Entrada</th><th>Salida</th><th>Saldo</th><th>Factura</th><th>Registrado por</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td>01/03 08:00</td>
+              <td><span class="chip chip-ok">📥 Entrada</span></td>
+              <td>Pedido #P-085 — Guatelinda</td>
+              <td><span class="bodega-tag">Principal</span></td>
+              <td class="kardex-entry-in" style="font-family:'DM Mono',monospace">+60</td>
+              <td style="color:var(--muted)">—</td>
+              <td style="font-family:'DM Mono',monospace;font-weight:700">60</td>
+              <td><span class="chip chip-ok">F-2024</span></td>
+              <td>Sistema</td>
+            </tr>
+            <tr>
+              <td>03/03 10:30</td>
+              <td><span class="chip chip-danger">📤 Salida</span></td>
+              <td>Venta #1030 — Cliente mayorista</td>
+              <td><span class="bodega-tag">Principal</span></td>
+              <td style="color:var(--muted)">—</td>
+              <td class="kardex-entry-out" style="font-family:'DM Mono',monospace">-30</td>
+              <td style="font-family:'DM Mono',monospace;font-weight:700">30</td>
+              <td><span class="chip chip-ok">F-2025</span></td>
+              <td>María G.</td>
+            </tr>
+            <tr>
+              <td>05/03 14:00</td>
+              <td><span class="chip chip-ok">📥 Entrada</span></td>
+              <td>Pedido #P-086 — Guatelinda</td>
+              <td><span class="bodega-tag">Principal</span></td>
+              <td class="kardex-entry-in" style="font-family:'DM Mono',monospace">+60</td>
+              <td style="color:var(--muted)">—</td>
+              <td style="font-family:'DM Mono',monospace;font-weight:700">90</td>
+              <td><span class="chip chip-ok">F-2026</span></td>
+              <td>Sistema</td>
+            </tr>
+            <tr>
+              <td>08/03 09:15</td>
+              <td><span class="chip chip-danger">📤 Salida</span></td>
+              <td>Venta #1038 — Cliente detalle</td>
+              <td><span class="bodega-tag">Principal</span></td>
+              <td style="color:var(--muted)">—</td>
+              <td class="kardex-entry-out" style="font-family:'DM Mono',monospace">-50</td>
+              <td style="font-family:'DM Mono',monospace;font-weight:700">40</td>
+              <td><span class="chip chip-danger">❌ Sin factura</span></td>
+              <td>Pedro L.</td>
+            </tr>
+            <tr>
+              <td>10/03 11:00</td>
+              <td><span class="chip chip-danger">📤 Salida</span></td>
+              <td>Venta #1040 — Cliente mayorista</td>
+              <td><span class="bodega-tag">Principal</span></td>
+              <td style="color:var(--muted)">—</td>
+              <td class="kardex-entry-out" style="font-family:'DM Mono',monospace">-40</td>
+              <td style="font-family:'DM Mono',monospace;font-weight:700">0</td>
+              <td><span class="chip chip-ok">F-2030</span></td>
+              <td>María G.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /kardex -->
+
+
+    <!-- ───────────────────────────────────────
+         PANEL: VENTAS
+    ─────────────────────────────────────── -->
+    <div class="panel" id="owner-sales">
+      <div class="page-title">💰 Reportes de ventas</div>
+      <div class="page-sub">Historial, filtros avanzados y análisis de tendencias</div>
+
+      <div class="stat-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat-card"><div class="s-icon">📅</div><div class="s-val">Q 4,820</div><div class="s-label">Ventas hoy</div></div>
+        <div class="stat-card"><div class="s-icon">📆</div><div class="s-val">Q 29,450</div><div class="s-label">Ventas semana</div></div>
+        <div class="stat-card"><div class="s-icon">🗓️</div><div class="s-val">Q 118,300</div><div class="s-label">Ventas mes</div></div>
+      </div>
+
+      <!-- Sub-tabs -->
+      <div id="sales-tabs">
+        <div class="sub-tabs">
+          <button class="sub-tab active" onclick="showSubTab('sales-tabs','sales-historial',this)">📋 Historial</button>
+          <button class="sub-tab"        onclick="showSubTab('sales-tabs','sales-tendencias',this)">📈 Tendencias anuales</button>
+          <button class="sub-tab"        onclick="showSubTab('sales-tabs','sales-sin-factura',this)">⚠️ Sin factura</button>
+        </div>
+
+        <!-- Historial -->
+        <div class="sub-panel active" id="sales-historial">
+          <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:flex-end">
+            <div class="inp-group"><label>Fecha</label><input type="date" style="width:150px"></div>
+            <div class="inp-group"><label>Marca</label><select style="width:130px"><option>Todas</option><option>Guatelinda</option><option>Ideal</option><option>Brillante</option></select></div>
+            <div class="inp-group"><label>Categoría</label><select style="width:130px"><option>Todas</option><option>Granos</option><option>Aceites</option><option>Higiene</option></select></div>
+            <div class="inp-group"><label>Empleado</label><select style="width:130px"><option>Todos</option><option>María G.</option><option>Pedro L.</option><option>Ana R.</option></select></div>
+            <button class="btn btn-owner">Filtrar</button>
+            <button class="btn btn-outline">⬇ Exportar</button>
+          </div>
+          <div class="card" style="padding:0">
+            <table class="tbl">
+              <thead><tr><th>#</th><th>Fecha</th><th>Producto</th><th>Qty</th><th>Total</th><th>Empleado</th><th>Factura</th><th>Estado</th></tr></thead>
+              <tbody>
+                <tr><td style="font-family:'DM Mono',monospace;color:var(--muted)">#1042</td><td>12/03 09:14</td><td>Azúcar 50lb ×2</td><td>2</td><td style="font-family:'DM Mono',monospace">Q 240.00</td><td>María G.</td><td>F-2031</td><td><span class="chip chip-ok">✅ Pagado</span></td></tr>
+                <tr><td style="font-family:'DM Mono',monospace;color:var(--muted)">#1041</td><td>12/03 08:55</td><td>Aceite Ideal ×10</td><td>10</td><td style="font-family:'DM Mono',monospace">Q 385.00</td><td>Pedro L.</td><td>F-2030</td><td><span class="chip chip-ok">✅ Pagado</span></td></tr>
+                <tr><td style="font-family:'DM Mono',monospace;color:var(--muted)">#1040</td><td>12/03 08:30</td><td>Arroz Brillante ×20</td><td>20</td><td style="font-family:'DM Mono',monospace">Q 150.00</td><td>María G.</td><td>F-2029</td><td><span class="chip chip-pending">🕐 Pendiente</span></td></tr>
+                <tr><td style="font-family:'DM Mono',monospace;color:var(--muted)">#1039</td><td>11/03 17:10</td><td>Jabón Dove ×5</td><td>5</td><td style="font-family:'DM Mono',monospace">Q 90.00</td><td>Pedro L.</td><td>F-2028</td><td><span class="chip chip-ok">✅ Pagado</span></td></tr>
+                <tr style="background:#FDECEB20"><td style="font-family:'DM Mono',monospace;color:var(--muted)">#1038</td><td>11/03 15:45</td><td>Café Montaña ×3</td><td>3</td><td style="font-family:'DM Mono',monospace">Q 84.00</td><td>Ana R.</td><td style="color:var(--danger)">—</td><td><span class="chip chip-danger">❌ Sin factura</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tendencias anuales -->
+        <div class="sub-panel" id="sales-tendencias">
+          <div class="card" style="margin-bottom:16px">
+            <div class="card-title">📅 Ventas mensuales — 2026</div>
+            <div class="chart-bars" style="height:140px">
+              <div class="bar-wrap"><div class="bar" style="height:55%;background:var(--owner-light)"></div><div class="bar-label">Ene</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:68%;background:var(--owner-light)"></div><div class="bar-label">Feb</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:45%;background:var(--owner-mid)"></div><div class="bar-label">Mar</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:20%;background:#E2DDD5"></div><div class="bar-label">Abr</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:20%;background:#E2DDD5"></div><div class="bar-label">May</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:20%;background:#E2DDD5"></div><div class="bar-label">Jun</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:20%;background:#E2DDD5"></div><div class="bar-label">Jul</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:20%;background:#E2DDD5"></div><div class="bar-label">Ago</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:20%;background:#E2DDD5"></div><div class="bar-label">Sep</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:20%;background:#E2DDD5"></div><div class="bar-label">Oct</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:20%;background:#E2DDD5"></div><div class="bar-label">Nov</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:80%;background:#E2DDD5"></div><div class="bar-label">Dic</div></div>
+            </div>
+            <div style="font-size:11px;color:var(--muted);margin-top:8px">Las barras grises son proyecciones. Dic incluye datos del año anterior como referencia.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">🔍 Comparación por categoría (trimestre)</div>
+            <div class="progress-row"><div class="progress-label">Granos</div><div class="progress-track"><div class="progress-fill" style="width:85%"></div></div><div class="progress-val">Q 48,200</div></div>
+            <div class="progress-row"><div class="progress-label">Aceites</div><div class="progress-track"><div class="progress-fill" style="width:62%"></div></div><div class="progress-val">Q 35,100</div></div>
+            <div class="progress-row"><div class="progress-label">Higiene</div><div class="progress-track"><div class="progress-fill" style="width:41%"></div></div><div class="progress-val">Q 23,400</div></div>
+            <div class="progress-row"><div class="progress-label">Bebidas</div><div class="progress-track"><div class="progress-fill" style="width:30%"></div></div><div class="progress-val">Q 17,000</div></div>
+            <div class="progress-row"><div class="progress-label">Condimentos</div><div class="progress-track"><div class="progress-fill" style="width:18%"></div></div><div class="progress-val">Q 10,200</div></div>
+          </div>
+        </div>
+
+        <!-- Sin factura -->
+        <div class="sub-panel" id="sales-sin-factura">
+          <div class="alert-banner alert-danger">⚠️ Estas ventas fueron registradas pero <strong>no tienen factura emitida</strong>. Pueden representar pérdidas no contabilizadas.</div>
+          <div class="card" style="padding:0">
+            <table class="tbl">
+              <thead><tr><th>#Venta</th><th>Fecha</th><th>Producto</th><th>Total</th><th>Empleado</th><th>Acción</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td style="font-family:'DM Mono',monospace;color:var(--muted)">#1038</td>
+                  <td>11/03 15:45</td><td>Café Montaña ×3</td>
+                  <td style="font-family:'DM Mono',monospace">Q 84.00</td>
+                  <td>Ana R.</td>
+                  <td><button class="btn btn-owner" style="padding:5px 12px;font-size:12px">🧾 Emitir factura</button></td>
+                </tr>
+                <tr>
+                  <td style="font-family:'DM Mono',monospace;color:var(--muted)">#1025</td>
+                  <td>09/03 12:10</td><td>Frijol negro ×15</td>
+                  <td style="font-family:'DM Mono',monospace">Q 135.00</td>
+                  <td>Pedro L.</td>
+                  <td><button class="btn btn-owner" style="padding:5px 12px;font-size:12px">🧾 Emitir factura</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div><!-- /sales -->
+
+
+    <!-- ───────────────────────────────────────
+         PANEL: PRECIOS
+    ─────────────────────────────────────── -->
+    <div class="panel" id="owner-prices">
+      <div class="page-title">🏷️ Gestión de precios</div>
+      <div class="page-sub">Precios al detalle, al mayor y referencia de competencia</div>
+      <div class="card" style="padding:0">
+        <table class="tbl">
+          <thead><tr>
+            <th>Producto</th><th>Precio detalle</th><th>Precio mayor</th><th>Descuento mayor</th><th>Competencia ref.</th><th></th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Azúcar 50lb</strong></td>
+              <td><input class="price-input" value="Q 120.00"></td>
+              <td><input class="price-input" value="Q 108.00"></td>
+              <td><span class="chip chip-ok">10%</span></td>
+              <td style="color:var(--muted);font-family:'DM Mono',monospace">Q 118.00</td>
+              <td><button class="btn btn-owner" style="padding:5px 12px;font-size:12px" onclick="savePrice(this)">💾 Guardar</button></td>
+            </tr>
+            <tr>
+              <td><strong>Aceite Ideal 1L</strong></td>
+              <td><input class="price-input" value="Q 38.50"></td>
+              <td><input class="price-input" value="Q 34.00"></td>
+              <td><span class="chip chip-ok">12%</span></td>
+              <td style="color:var(--muted);font-family:'DM Mono',monospace">Q 40.00</td>
+              <td><button class="btn btn-owner" style="padding:5px 12px;font-size:12px" onclick="savePrice(this)">💾 Guardar</button></td>
+            </tr>
+            <tr>
+              <td><strong>Arroz Brillante</strong></td>
+              <td><input class="price-input" value="Q 7.50"></td>
+              <td><input class="price-input" value="Q 6.80"></td>
+              <td><span class="chip chip-warn">9%</span></td>
+              <td style="color:var(--muted);font-family:'DM Mono',monospace">Q 7.00</td>
+              <td><button class="btn btn-owner" style="padding:5px 12px;font-size:12px" onclick="savePrice(this)">💾 Guardar</button></td>
+            </tr>
+            <tr>
+              <td><strong>Jabón Dove 90g</strong></td>
+              <td><input class="price-input" value="Q 18.00"></td>
+              <td><input class="price-input" value="Q 15.50"></td>
+              <td><span class="chip chip-ok">14%</span></td>
+              <td style="color:var(--muted);font-family:'DM Mono',monospace">Q 19.00</td>
+              <td><button class="btn btn-owner" style="padding:5px 12px;font-size:12px" onclick="savePrice(this)">💾 Guardar</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /prices -->
+
+
+    <!-- ───────────────────────────────────────
+         PANEL: PEDIDOS & PROVEEDORES
+    ─────────────────────────────────────── -->
+    <div class="panel" id="owner-orders">
+      <div class="page-title">📋 Pedidos y proveedores</div>
+      <div class="page-sub">Órdenes de compra, facturas y confirmación de pagos por correo</div>
+
+      <div style="display:flex;gap:10px;margin-bottom:20px">
+        <button class="btn btn-owner" onclick="openModal('modal-new-order')">+ Nuevo pedido</button>
+        <button class="btn btn-outline" onclick="openModal('modal-email')">📧 Enviar confirmación de pago</button>
+      </div>
+
+      <div id="orders-tabs">
+        <div class="sub-tabs">
+          <button class="sub-tab active" onclick="showSubTab('orders-tabs','orders-activos',this)">🚚 Pedidos activos</button>
+          <button class="sub-tab"        onclick="showSubTab('orders-tabs','orders-historial',this)">📁 Historial</button>
+          <button class="sub-tab"        onclick="showSubTab('orders-tabs','orders-proveedores',this)">🏭 Proveedores</button>
+        </div>
+
+        <!-- Activos -->
+        <div class="sub-panel active" id="orders-activos">
+          <div class="card" style="padding:0">
+            <table class="tbl">
+              <thead><tr><th>Pedido</th><th>Proveedor</th><th>Producto</th><th>Qty</th><th>Total</th><th>Fecha</th><th>Estado</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td style="font-family:'DM Mono',monospace;color:var(--muted)">#P-088</td>
+                  <td>Guatelinda</td><td>Azúcar 50lb ×50</td><td>50</td>
+                  <td style="font-family:'DM Mono',monospace">Q 5,800</td><td>10/03</td>
+                  <td><span class="chip chip-pending">🚚 En tránsito</span></td>
+                  <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="openModal('modal-email')">📧 Confirmar</button></td>
+                </tr>
+                <tr>
+                  <td style="font-family:'DM Mono',monospace;color:var(--muted)">#P-087</td>
+                  <td>Dist. García</td><td>Aceite Ideal ×100</td><td>100</td>
+                  <td style="font-family:'DM Mono',monospace">Q 3,200</td><td>08/03</td>
+                  <td><span class="chip chip-ok">✅ Entregado</span></td>
+                  <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="openModal('modal-email')">📧 Confirmar</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Historial -->
+        <div class="sub-panel" id="orders-historial">
+          <div class="card" style="padding:0">
+            <table class="tbl">
+              <thead><tr><th>Pedido</th><th>Proveedor</th><th>Producto</th><th>Total</th><th>Fecha</th><th>Estado</th></tr></thead>
+              <tbody>
+                <tr><td style="font-family:'DM Mono',monospace;color:var(--muted)">#P-086</td><td>Brillante S.A.</td><td>Arroz 1lb ×200</td><td style="font-family:'DM Mono',monospace">Q 1,400</td><td>05/03</td><td><span class="chip chip-ok">✅ Pagado</span></td></tr>
+                <tr><td style="font-family:'DM Mono',monospace;color:var(--muted)">#P-085</td><td>Guatelinda</td><td>Azúcar 50lb ×60</td><td style="font-family:'DM Mono',monospace">Q 6,900</td><td>01/03</td><td><span class="chip chip-ok">✅ Pagado</span></td></tr>
+                <tr><td style="font-family:'DM Mono',monospace;color:var(--muted)">#P-084</td><td>Dist. García</td><td>Aceite Ideal ×80</td><td style="font-family:'DM Mono',monospace">Q 2,560</td><td>22/02</td><td><span class="chip chip-ok">✅ Pagado</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Proveedores -->
+        <div class="sub-panel" id="orders-proveedores">
+          <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+            <button class="btn btn-owner" onclick="openModal('modal-add-supplier')">+ Agregar proveedor</button>
+          </div>
+          <div class="card" style="padding:0">
+            <table class="tbl">
+              <thead><tr><th>Proveedor</th><th>Contacto</th><th>Correo</th><th>Productos</th><th>Info facturación</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><strong>Guatelinda S.A.</strong></td><td>Roberto Paz</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:12px">rpaz@guatelinda.gt</td>
+                  <td>Azúcar, Maíz</td>
+                  <td><span class="chip chip-blue">NIT 12345-6</span></td>
+                  <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="openModal('modal-email')">📧 Enviar correo</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Distribuidora García</strong></td><td>Ana García</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:12px">agarcia@dist.gt</td>
+                  <td>Aceites, Grasas</td>
+                  <td><span class="chip chip-blue">NIT 78901-2</span></td>
+                  <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="openModal('modal-email')">📧 Enviar correo</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Brillante S.A.</strong></td><td>José Molina</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:12px">jmolina@brillante.gt</td>
+                  <td>Arroz, Granos</td>
+                  <td><span class="chip chip-blue">NIT 34567-8</span></td>
+                  <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="openModal('modal-email')">📧 Enviar correo</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div><!-- /orders -->
+
+
+    <!-- ───────────────────────────────────────
+         PANEL: CLIENTES
+    ─────────────────────────────────────── -->
+    <div class="panel" id="owner-clients">
+      <div class="page-title">👥 Clientes</div>
+      <div class="page-sub">Estado de pagos, adelantos y saldos pendientes</div>
+
+      <div style="display:flex;gap:10px;margin-bottom:16px;align-items:flex-end">
+        <div class="inp-group" style="flex:1"><input placeholder="🔍  Buscar cliente…"></div>
+        <button class="btn btn-owner">+ Agregar cliente</button>
+      </div>
+
+      <div class="card" style="padding:0">
+        <table class="tbl">
+          <thead><tr>
+            <th>Cliente</th><th>Tipo</th><th>Teléfono</th><th>Última compra</th><th>Saldo pendiente</th><th>Estado</th><th></th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Comercial López</strong></td>
+              <td><span class="chip chip-blue">Mayorista</span></td>
+              <td>5555-1234</td><td>12/03</td>
+              <td style="font-family:'DM Mono',monospace;color:var(--danger)">-Q 800.00</td>
+              <td><span class="chip chip-danger">💳 Debe</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="openModal('modal-payment')">Ver pagos</button></td>
+            </tr>
+            <tr>
+              <td><strong>Tienda Martínez</strong></td>
+              <td><span class="chip chip-blue">Mayorista</span></td>
+              <td>5555-5678</td><td>11/03</td>
+              <td style="font-family:'DM Mono',monospace;color:var(--ok)">+Q 500.00</td>
+              <td><span class="chip chip-ok">✅ Adelanto</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="openModal('modal-payment')">Ver pagos</button></td>
+            </tr>
+            <tr>
+              <td><strong>Juan Pérez</strong></td>
+              <td><span class="chip" style="background:var(--bg);color:var(--muted);border:1px solid var(--border)">Detalle</span></td>
+              <td>5555-9012</td><td>10/03</td>
+              <td style="font-family:'DM Mono',monospace">Q 0.00</td>
+              <td><span class="chip chip-ok">✅ Al día</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="openModal('modal-payment')">Ver pagos</button></td>
+            </tr>
+            <tr>
+              <td><strong>Abarrotería Fuentes</strong></td>
+              <td><span class="chip chip-blue">Mayorista</span></td>
+              <td>5555-3456</td><td>08/03</td>
+              <td style="font-family:'DM Mono',monospace;color:var(--danger)">-Q 2,400.00</td>
+              <td><span class="chip chip-danger">💳 Debe</span></td>
+              <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="openModal('modal-payment')">Ver pagos</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /clients -->
+
+  </div><!-- /main -->
+</div><!-- /app-owner -->
+
+
+<!-- ════════════════════════════════════════════
+     APP — EMPLEADO
+════════════════════════════════════════════ -->
+<div class="app" id="app-employee">
+  <div class="topbar">
+    <div class="topbar-logo">Store<span>OS</span></div>
+    <nav class="topbar-nav">
+      <button class="nav-item active emp" onclick="showPanel('emp','sale',this)">🧾 Registrar venta</button>
+      <button class="nav-item"            onclick="showPanel('emp','inv',this)">📦 Inventario</button>
+      <button class="nav-item"            onclick="showPanel('emp','search',this)">🔍 Buscar</button>
+    </nav>
+    <div class="topbar-right">
+      <div class="badge-notif">🔔<div class="badge-dot"></div></div>
+      <div class="avatar emp">MA</div>
+      <button class="logout-btn" onclick="logout()">← Salir</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- Registrar venta -->
+    <div class="panel active" id="emp-sale">
+      <div class="page-title">🧾 Registrar venta</div>
+      <div class="page-sub">Añade productos a la venta actual</div>
+      <div class="alert-banner alert-warn">⚠️ <strong>Azúcar 50lb</strong> está agotado — no disponible para venta.</div>
+      <div class="sale-form">
+        <div class="card-title" style="margin-bottom:14px">➕ Agregar producto</div>
+        <div class="sale-form-grid">
+          <div class="inp-group"><label>Producto</label><input placeholder="Nombre o código…" list="prod-list"><datalist id="prod-list"><option value="Aceite Ideal 1L"><option value="Arroz Brillante 1lb"><option value="Frijol negro 1lb"><option value="Jabón Dove 90g"><option value="Café Montaña 250g"></datalist></div>
+          <div class="inp-group"><label>Cantidad</label><input type="number" value="1" min="1" style="width:80px"></div>
+          <button class="btn btn-primary" style="margin-top:auto">+ Añadir</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:16px;padding:0">
+        <div style="padding:16px 20px;border-bottom:1px solid var(--border)" class="card-title">🛒 Venta en curso — Ticket #1043</div>
+        <table class="tbl">
+          <thead><tr><th>Producto</th><th>Precio unit.</th><th>Qty</th><th>Subtotal</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Aceite Ideal 1L</td><td style="font-family:'DM Mono',monospace">Q 38.50</td><td><input type="number" value="3" style="width:55px;border:1px solid var(--border);border-radius:6px;padding:4px 6px;font-family:'DM Mono',monospace"></td><td style="font-family:'DM Mono',monospace"><strong>Q 115.50</strong></td><td><button style="background:none;border:none;cursor:pointer;font-size:16px;color:var(--danger)">🗑</button></td></tr>
+            <tr><td>Jabón Dove 90g</td><td style="font-family:'DM Mono',monospace">Q 18.00</td><td><input type="number" value="5" style="width:55px;border:1px solid var(--border);border-radius:6px;padding:4px 6px;font-family:'DM Mono',monospace"></td><td style="font-family:'DM Mono',monospace"><strong>Q 90.00</strong></td><td><button style="background:none;border:none;cursor:pointer;font-size:16px;color:var(--danger)">🗑</button></td></tr>
+          </tbody>
+        </table>
+        <div style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border)">
+          <div>
+            <div style="font-size:12px;color:var(--muted);font-weight:600">TOTAL</div>
+            <div style="font-size:24px;font-weight:700;font-family:'DM Mono',monospace">Q 205.50</div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-outline">🧾 Ver factura</button>
+            <button class="btn btn-primary">✅ Confirmar venta</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inventario empleado -->
+    <div class="panel" id="emp-inv">
+      <div class="page-title">📦 Consultar inventario</div>
+      <div class="page-sub">Solo lectura — para responder dudas de clientes</div>
+      <div class="alert-banner alert-danger">🔴 <strong>Azúcar 50lb</strong> agotado. Notifica al dueño.</div>
+      <div class="card" style="padding:0">
+        <table class="tbl">
+          <thead><tr><th>Producto</th><th>Categoría</th><th>Stock</th><th>Estado</th></tr></thead>
+          <tbody>
+            <tr><td>Azúcar 50lb</td><td>Granos</td><td style="font-family:'DM Mono',monospace">0</td><td><span class="stock-dot dot-danger"></span>Agotado</td></tr>
+            <tr><td>Aceite Ideal 1L</td><td>Aceites</td><td style="font-family:'DM Mono',monospace">5</td><td><span class="stock-dot dot-warn"></span>Bajo</td></tr>
+            <tr><td>Arroz Brillante 1lb</td><td>Granos</td><td style="font-family:'DM Mono',monospace">8</td><td><span class="stock-dot dot-warn"></span>Bajo</td></tr>
+            <tr><td>Jabón Dove 90g</td><td>Higiene</td><td style="font-family:'DM Mono',monospace">34</td><td><span class="stock-dot dot-ok"></span>Disponible</td></tr>
+            <tr><td>Sal Marina 500g</td><td>Condimentos</td><td style="font-family:'DM Mono',monospace">52</td><td><span class="stock-dot dot-ok"></span>Disponible</td></tr>
+            <tr><td>Frijol negro 1lb</td><td>Granos</td><td style="font-family:'DM Mono',monospace">28</td><td><span class="stock-dot dot-ok"></span>Disponible</td></tr>
+            <tr><td>Café Montaña 250g</td><td>Bebidas</td><td style="font-family:'DM Mono',monospace">19</td><td><span class="stock-dot dot-ok"></span>Disponible</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Buscar -->
+    <div class="panel" id="emp-search">
+      <div class="page-title">🔍 Buscar producto</div>
+      <div class="page-sub">Consulta rápida de precio, stock y categoría</div>
+      <div class="sale-form" style="margin-bottom:20px">
+        <div class="sale-form-grid">
+          <div class="inp-group"><label>Nombre, marca o código</label><input placeholder="Ej: Aceite, Jabón, #0042…"></div>
+          <div class="inp-group"><label>Categoría</label><select><option>Todas</option><option>Granos</option><option>Aceites</option><option>Higiene</option><option>Bebidas</option></select></div>
+          <button class="btn btn-primary" style="margin-top:auto">🔍 Buscar</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Resultados</div>
+        <div style="color:var(--muted);font-size:13px;text-align:center;padding:20px">Ingresa un término para buscar productos.</div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /app-employee -->
+
+
+<!-- ════════════════════════════════════════════
+     APP — CLIENTE
+════════════════════════════════════════════ -->
+<div class="app" id="app-customer" style="background:var(--bg)">
+  <div class="store-topbar">
+    <div class="store-logo">🛒 La Tienda</div>
+    <input class="store-search" placeholder="🔍  Buscar productos…">
+    <button class="store-cart" onclick="logout()">🛒 Carrito <div class="cart-count">3</div></button>
+  </div>
+  <div class="store-main">
+    <div class="category-pills">
+      <div class="cat-pill active">🌾 Granos</div>
+      <div class="cat-pill">🫙 Aceites</div>
+      <div class="cat-pill">🧼 Higiene</div>
+      <div class="cat-pill">☕ Bebidas</div>
+      <div class="cat-pill">🧂 Condimentos</div>
+      <div class="cat-pill">🏷️ Promociones</div>
+    </div>
+    <div class="product-grid">
+      <div class="product-card"><div class="product-img">🌾</div><div class="product-info"><div class="product-name">Azúcar 50lb</div><div class="product-cat">Granos · Guatelinda</div><div class="product-footer"><div class="product-price">Q 120.00</div><button class="btn-add" disabled>❌ Agotado</button></div></div></div>
+      <div class="product-card"><div class="product-img">🫙</div><div class="product-info"><div class="product-name">Aceite Ideal 1L</div><div class="product-cat">Aceites · Ideal</div><div class="product-footer"><div class="product-price">Q 38.50</div><button class="btn-add">+ Agregar</button></div></div></div>
+      <div class="product-card"><div class="product-img">🍚</div><div class="product-info"><div class="product-name">Arroz Brillante 1lb</div><div class="product-cat">Granos · Brillante</div><div class="product-footer"><div class="product-price">Q 7.50</div><button class="btn-add">+ Agregar</button></div></div></div>
+      <div class="product-card"><div class="product-img">🫘</div><div class="product-info"><div class="product-name">Frijol negro 1lb</div><div class="product-cat">Granos · Sin marca</div><div class="product-footer"><div class="product-price">Q 9.00</div><button class="btn-add">+ Agregar</button></div></div></div>
+      <div class="product-card"><div class="product-img">🧼</div><div class="product-info"><div class="product-name">Jabón Dove 90g</div><div class="product-cat">Higiene · Dove</div><div class="product-footer"><div class="product-price">Q 18.00</div><button class="btn-add">+ Agregar</button></div></div></div>
+      <div class="product-card"><div class="product-img">☕</div><div class="product-info"><div class="product-name">Café Montaña 250g</div><div class="product-cat">Bebidas · Montaña</div><div class="product-footer"><div class="product-price">Q 28.00</div><button class="btn-add">+ Agregar</button></div></div></div>
+      <div class="product-card"><div class="product-img">🧂</div><div class="product-info"><div class="product-name">Sal Marina 500g</div><div class="product-cat">Condimentos</div><div class="product-footer"><div class="product-price">Q 4.50</div><button class="btn-add">+ Agregar</button></div></div></div>
+      <div class="product-card" style="border:2px solid var(--customer-mid)"><div class="product-img" style="background:var(--customer-light)">🏷️</div><div class="product-info"><div class="product-name">Harina Maseca 1kg</div><div class="product-cat">Harinas · <strong style="color:var(--customer)">Promo -15%</strong></div><div class="product-footer"><div class="product-price">Q 11.90</div><button class="btn-add">+ Agregar</button></div></div></div>
+    </div>
+  </div>
+</div><!-- /app-customer -->
+
+
+<!-- ════════════════════════════════════════════
+     MODALES
+════════════════════════════════════════════ -->
+
+<!-- Modal: correo confirmación de pago -->
+<div class="modal-overlay" id="modal-email">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-email')">✕</button>
+    <div class="modal-title">📧 Confirmación de pago por correo</div>
+    <div class="modal-sub">Se enviará automáticamente al correo del proveedor registrado.</div>
+    <div class="inp-group" style="margin-bottom:12px">
+      <label>Para</label>
+      <input value="rpaz@guatelinda.gt">
+    </div>
+    <div class="inp-group" style="margin-bottom:12px">
+      <label>Asunto</label>
+      <input value="Confirmación de pago — Pedido #P-088">
+    </div>
+    <div class="email-preview">
+      <div class="ep-label">Vista previa del mensaje</div>
+      <div class="ep-body">Estimado Roberto Paz,
+
+Por medio del presente correo le confirmamos el pago correspondiente al pedido #P-088 por un monto de Q 5,800.00, efectuado el día 12 de marzo de 2026.
+
+Queda a disposición para cualquier consulta sobre la factura o el proceso.
+
+Atentamente,
+Carlos — StoreOS</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-email')">Cancelar</button>
+      <button class="btn btn-owner" id="btn-send-email" onclick="sendEmailConfirm()">📧 Enviar correo</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: ver pagos del cliente -->
+<div class="modal-overlay" id="modal-payment">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-payment')">✕</button>
+    <div class="modal-title">💳 Estado de pagos — Comercial López</div>
+    <div class="modal-sub">Historial de abonos, deudas y adelantos del cliente.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+      <div class="stat-card"><div class="s-icon">💰</div><div class="s-val" style="font-size:18px;color:var(--danger)">-Q 800</div><div class="s-label">Saldo pendiente</div></div>
+      <div class="stat-card"><div class="s-icon">🧾</div><div class="s-val" style="font-size:18px">Q 3,200</div><div class="s-label">Total comprado (mes)</div></div>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>Fecha</th><th>Concepto</th><th>Monto</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td>10/03</td><td>Compra #1040 — Azúcar ×20</td><td style="font-family:'DM Mono',monospace">Q 2,400</td><td><span class="chip chip-ok">✅ Pagado</span></td></tr>
+        <tr><td>11/03</td><td>Compra #1041 — Aceite ×20</td><td style="font-family:'DM Mono',monospace">Q 800</td><td><span class="chip chip-danger">💳 Pendiente</span></td></tr>
+      </tbody>
+    </table>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-payment')">Cerrar</button>
+      <button class="btn btn-owner">+ Registrar abono</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: nuevo pedido a proveedor -->
+<div class="modal-overlay" id="modal-new-order">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-new-order')">✕</button>
+    <div class="modal-title">📋 Nuevo pedido a proveedor</div>
+    <div class="modal-sub">Completa los datos del pedido de compra.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="inp-group"><label>Proveedor</label><select><option>Guatelinda S.A.</option><option>Dist. García</option><option>Brillante S.A.</option></select></div>
+      <div class="inp-group"><label>Fecha estimada</label><input type="date"></div>
+      <div class="inp-group"><label>Producto</label><input placeholder="Nombre del producto"></div>
+      <div class="inp-group"><label>Cantidad</label><input type="number" placeholder="0"></div>
+      <div class="inp-group"><label>Precio total (Q)</label><input type="number" placeholder="0.00"></div>
+      <div class="inp-group"><label>Bodega destino</label><select><option>Principal</option><option>Norte</option><option>Sur</option></select></div>
+    </div>
+    <div class="inp-group" style="margin-top:12px"><label>Notas adicionales</label><textarea placeholder="Instrucciones especiales, referencias, etc."></textarea></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-new-order')">Cancelar</button>
+      <button class="btn btn-owner">📋 Crear pedido</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: agregar producto -->
+<div class="modal-overlay" id="modal-add-product">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-add-product')">✕</button>
+    <div class="modal-title">📦 Agregar producto al inventario</div>
+    <div class="modal-sub">Completa la información del nuevo producto.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="inp-group"><label>Nombre del producto</label><input placeholder="Ej: Aceite Ideal 1L"></div>
+      <div class="inp-group"><label>Categoría</label><select><option>Granos</option><option>Aceites</option><option>Higiene</option><option>Bebidas</option><option>Condimentos</option></select></div>
+      <div class="inp-group"><label>Marca</label><input placeholder="Ej: Ideal"></div>
+      <div class="inp-group"><label>Bodega</label><select><option>Principal</option><option>Norte</option><option>Sur</option></select></div>
+      <div class="inp-group"><label>Stock inicial</label><input type="number" placeholder="0"></div>
+      <div class="inp-group"><label>Stock mínimo</label><input type="number" placeholder="0"></div>
+      <div class="inp-group"><label>Precio detalle (Q)</label><input type="number" placeholder="0.00"></div>
+      <div class="inp-group"><label>Precio mayor (Q)</label><input type="number" placeholder="0.00"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-add-product')">Cancelar</button>
+      <button class="btn btn-owner">📦 Agregar producto</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: agregar proveedor -->
+<div class="modal-overlay" id="modal-add-supplier">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-add-supplier')">✕</button>
+    <div class="modal-title">🏭 Agregar proveedor</div>
+    <div class="modal-sub">Datos de contacto y facturación del nuevo proveedor.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="inp-group"><label>Nombre de empresa</label><input placeholder="Ej: Guatelinda S.A."></div>
+      <div class="inp-group"><label>Contacto</label><input placeholder="Nombre del representante"></div>
+      <div class="inp-group"><label>Correo electrónico</label><input type="email" placeholder="correo@empresa.gt"></div>
+      <div class="inp-group"><label>Teléfono</label><input placeholder="5555-0000"></div>
+      <div class="inp-group"><label>NIT</label><input placeholder="12345-6"></div>
+      <div class="inp-group"><label>Productos que provee</label><input placeholder="Ej: Azúcar, Maíz"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-add-supplier')">Cancelar</button>
+      <button class="btn btn-owner">🏭 Guardar proveedor</button>
+    </div>
+  </div>
+</div>
+
+
+<script src="app.js"></script>
+</body>
+</html>
