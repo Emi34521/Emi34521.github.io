@@ -3,18 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StoreOS — Prototipo 3</title>
+  <title>StoreOS — Prototipo 4</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════
-     LOGIN
-════════════════════════════════════════════ -->
+<!-- LOGIN -->
 <div id="screen-login">
   <div class="login-card">
-    <div class="login-logo">Store<span>OS</span> <span style="font-size:13px;font-weight:400;color:var(--muted)">v3</span></div>
+    <div class="login-logo">Store<span>OS</span> <span style="font-size:13px;font-weight:400;color:var(--muted)">v4</span></div>
     <div class="login-sub">Sistema de gestión · Selecciona tu rol</div>
     <div class="role-grid">
       <button class="role-btn active-owner" onclick="selectRole('owner',this)"><span class="icon">👑</span><span class="label">Dueño</span></button>
@@ -33,9 +31,7 @@
 </div>
 
 
-<!-- ════════════════════════════════════════════
-     APP — DUEÑO
-════════════════════════════════════════════ -->
+<!-- ════════════════ APP DUEÑO ════════════════ -->
 <div class="app" id="app-owner">
   <div class="topbar">
     <div class="topbar-logo">Store<span>OS</span></div>
@@ -43,6 +39,7 @@
       <button class="nav-item active" onclick="showPanel('owner','dashboard',this)">📊 Dashboard</button>
       <button class="nav-item"        onclick="showPanel('owner','inventory',this)">📦 Inventario</button>
       <button class="nav-item"        onclick="showPanel('owner','register',this)">➕ Registrar</button>
+      <button class="nav-item"        onclick="showPanel('owner','invoice',this)">🧾 Facturar</button>
       <button class="nav-item"        onclick="showPanel('owner','kardex',this)">📒 Kardex</button>
       <button class="nav-item"        onclick="showPanel('owner','sales',this)">💰 Ventas</button>
       <button class="nav-item"        onclick="showPanel('owner','prices',this)">🏷️ Precios</button>
@@ -55,23 +52,22 @@
       <button class="logout-btn" onclick="logout()">← Salir</button>
     </div>
   </div>
-
   <div class="main">
 
     <!-- DASHBOARD -->
     <div class="panel active" id="owner-dashboard">
       <div class="page-title">Buenos días, Carlos 👋</div>
-      <div class="page-sub">Resumen del día — 12 de marzo, 2026</div>
+      <div class="page-sub">Resumen del día — 14 de marzo, 2026</div>
       <div class="stat-grid">
         <div class="stat-card"><div class="s-icon">💵</div><div class="s-val">Q 4,820</div><div class="s-label">Ventas hoy</div><div class="s-delta delta-up">▲ 12% vs ayer</div><div class="sparkline"><div class="spark-bar" style="height:40%"></div><div class="spark-bar" style="height:60%"></div><div class="spark-bar" style="height:50%"></div><div class="spark-bar" style="height:75%"></div><div class="spark-bar" style="height:65%"></div><div class="spark-bar" style="height:90%"></div><div class="spark-bar" style="height:80%"></div></div></div>
         <div class="stat-card"><div class="s-icon">📦</div><div class="s-val">247</div><div class="s-label">Productos en stock</div><div class="s-delta delta-down">▼ 8 con alerta</div><div class="sparkline"><div class="spark-bar" style="height:70%"></div><div class="spark-bar" style="height:65%"></div><div class="spark-bar" style="height:60%"></div><div class="spark-bar" style="height:58%"></div><div class="spark-bar" style="height:55%"></div><div class="spark-bar" style="height:52%"></div><div class="spark-bar" style="height:50%"></div></div></div>
-        <div class="stat-card"><div class="s-icon">🧾</div><div class="s-val">38</div><div class="s-label">Pedidos del día</div><div class="s-delta delta-up">▲ 5 mayoristas</div><div class="sparkline"><div class="spark-bar" style="height:30%"></div><div class="spark-bar" style="height:45%"></div><div class="spark-bar" style="height:55%"></div><div class="spark-bar" style="height:60%"></div><div class="spark-bar" style="height:70%"></div><div class="spark-bar" style="height:75%"></div><div class="spark-bar" style="height:85%"></div></div></div>
+        <div class="stat-card"><div class="s-icon">🧾</div><div class="s-val">38</div><div class="s-label">Facturas emitidas</div><div class="s-delta delta-up">▲ 5 mayoristas</div><div class="sparkline"><div class="spark-bar" style="height:30%"></div><div class="spark-bar" style="height:45%"></div><div class="spark-bar" style="height:55%"></div><div class="spark-bar" style="height:60%"></div><div class="spark-bar" style="height:70%"></div><div class="spark-bar" style="height:75%"></div><div class="spark-bar" style="height:85%"></div></div></div>
         <div class="stat-card"><div class="s-icon">⚠️</div><div class="s-val">6</div><div class="s-label">Alertas stock bajo</div><div class="s-delta delta-down">Requieren atención</div><div class="sparkline"><div class="spark-bar" style="height:20%"></div><div class="spark-bar" style="height:30%"></div><div class="spark-bar" style="height:40%"></div><div class="spark-bar" style="height:55%"></div><div class="spark-bar" style="height:65%"></div><div class="spark-bar" style="height:80%"></div><div class="spark-bar" style="height:70%"></div></div></div>
       </div>
       <div class="main-with-aside">
         <div>
           <div class="card" style="margin-bottom:16px">
-            <div class="card-title">📈 Tendencia de ventas (últimos 7 días)</div>
+            <div class="card-title">📈 Tendencia de ventas (7 días)</div>
             <div class="chart-bars">
               <div class="bar-wrap"><div class="bar" style="height:55%;background:var(--owner-light)"></div><div class="bar-label">L</div></div>
               <div class="bar-wrap"><div class="bar" style="height:70%;background:var(--owner-light)"></div><div class="bar-label">M</div></div>
@@ -83,32 +79,29 @@
             </div>
           </div>
           <div class="card">
-            <div class="card-title">🏆 Productos más vendidos</div>
+            <div class="card-title">🏆 Más vendidos hoy</div>
             <div class="progress-row"><div class="progress-label">Azúcar 50lb</div><div class="progress-track"><div class="progress-fill" style="width:88%"></div></div><div class="progress-val">Q 1,240</div></div>
             <div class="progress-row"><div class="progress-label">Aceite Ideal 1L</div><div class="progress-track"><div class="progress-fill" style="width:72%"></div></div><div class="progress-val">Q 980</div></div>
             <div class="progress-row"><div class="progress-label">Vela San Judas 20cm</div><div class="progress-track"><div class="progress-fill" style="width:58%"></div></div><div class="progress-val">Q 760</div></div>
-            <div class="progress-row"><div class="progress-label">Arroz Brillante</div><div class="progress-track"><div class="progress-fill" style="width:45%"></div></div><div class="progress-val">Q 590</div></div>
           </div>
         </div>
         <div class="aside-alerts">
-          <div class="card-title" style="margin-bottom:0">🔔 Alertas recientes</div>
-          <div class="alert-item crit"><div class="a-icon">🔴</div><div><div class="a-title">Azúcar 50lb — AGOTADO</div><div class="a-text">0 uds. Reordenar con Guatelinda.</div></div></div>
-          <div class="alert-item warn"><div class="a-icon">🟡</div><div><div class="a-title">Aceite Ideal — bajo</div><div class="a-text">5 botellas restantes. Mínimo: 20.</div></div></div>
-          <div class="alert-item warn"><div class="a-icon">🟡</div><div><div class="a-title">Venta sin factura</div><div class="a-text">Venta #1038 — Café Montaña ×3.</div></div></div>
+          <div class="card-title" style="margin-bottom:0">🔔 Alertas</div>
+          <div class="alert-item crit"><div class="a-icon">🔴</div><div><div class="a-title">Azúcar — AGOTADO</div><div class="a-text">0 sacos. Reordenar.</div></div></div>
+          <div class="alert-item warn"><div class="a-icon">🟡</div><div><div class="a-title">Aceite Ideal — bajo</div><div class="a-text">5 botellas restantes.</div></div></div>
           <div class="alert-item ok"><div class="a-icon">✅</div><div><div class="a-title">Pago confirmado</div><div class="a-text">Dist. García — Q 2,400.</div></div></div>
         </div>
       </div>
     </div>
 
-    <!-- INVENTARIO DUEÑO -->
+    <!-- INVENTARIO -->
     <div class="panel" id="owner-inventory">
       <div class="page-title">📦 Inventario</div>
-      <div class="page-sub">Existencias por presentación de compra y unidades de venta</div>
-      <div class="alert-banner alert-info">ℹ️ El inventario registra las <strong>presentaciones de compra</strong> (cajas, sacos) y calcula las <strong>unidades vendibles</strong> automáticamente. Haz clic en 📦 Ver para ver el desglose de cualquier producto.</div>
+      <div class="page-sub">Existencias por presentación. Haz clic en 🔍 Ver para consultar el detalle completo del producto.</div>
 
       <div class="filter-bar">
-        <div class="search-compound" style="flex:2"><span class="s-icon">🔍</span><input placeholder="Nombre, código, sub-nombre…"></div>
-        <div class="inp-group">
+        <div class="search-compound" style="flex:2"><span class="s-icon">🔍</span><input placeholder="Nombre, código, OEM, marca, sub-nombre…"></div>
+        <div class="erp-field">
           <label>Categoría</label>
           <select style="width:130px" onchange="onCategoryFilterChange(this,'inv-dyn-filters')">
             <option>Todas</option><option>Granos</option><option>Aceites</option>
@@ -116,36 +109,25 @@
             <option>Condimentos</option><option>Harinas</option>
           </select>
         </div>
-        <div class="inp-group"><label>Bodega</label><select style="width:120px"><option>Todas</option><option>Principal</option><option>Norte</option><option>Sur</option></select></div>
-        <div class="inp-group"><label>Estado</label><select style="width:110px"><option>Todos</option><option>🟢 OK</option><option>🟡 Bajo</option><option>🔴 Agotado</option></select></div>
+        <div class="erp-field"><label>Bodega</label><select style="width:120px"><option>Todas</option><option>Principal</option><option>Norte</option><option>Sur</option></select></div>
+        <div class="erp-field"><label>Estado</label><select style="width:110px"><option>Todos</option><option>🟢 OK</option><option>🟡 Bajo</option><option>🔴 Agotado</option></select></div>
         <button class="btn btn-owner btn-sm" onclick="showPanel('owner','register',document.querySelectorAll('#app-owner .nav-item')[2])">+ Registrar</button>
       </div>
-
-      <!-- Filtros dinámicos por categoría -->
-      <div id="inv-dyn-filters" class="dyn-filters-row">
-        <div style="font-size:12px;color:var(--muted);padding:6px 0">Selecciona una categoría para ver filtros adicionales.</div>
-      </div>
+      <div id="inv-dyn-filters" class="dyn-filters-row"><div style="font-size:12px;color:var(--muted);padding:6px 0">Selecciona una categoría para ver filtros adicionales.</div></div>
 
       <div class="card" style="padding:0">
         <table class="tbl">
-          <thead><tr>
-            <th>Código</th><th>Producto</th><th>Categoría</th>
-            <th>Presentación compra</th><th>Presentaciones</th><th>Unidades</th>
-            <th>Mín.</th><th>Bodega</th><th>Precio ud.</th><th>Estado</th><th></th>
-          </tr></thead>
-          <tbody id="inv-table-body">
-            <!-- renderizado por JS -->
-          </tbody>
+          <thead><tr><th>Código / OEM</th><th>Producto</th><th>Categoría</th><th>Marca</th><th>Presentaciones</th><th>Unidades totales</th><th>Bodega</th><th>Precio público</th><th>Estado</th><th></th></tr></thead>
+          <tbody id="inv-table-body"><tr><td colspan="10" style="text-align:center;padding:20px;color:var(--muted)">Cargando…</td></tr></tbody>
         </table>
       </div>
     </div>
 
-    <!-- REGISTRAR PRODUCTO — WIZARD (DUEÑO) -->
+    <!-- REGISTRAR PRODUCTO — WIZARD -->
     <div class="panel" id="owner-register">
       <div class="page-title">➕ Registrar producto</div>
-      <div class="page-sub">Completa los 4 pasos para ingresar un producto al inventario</div>
+      <div class="page-sub">Completa los 4 pasos. Los campos con * son obligatorios.</div>
 
-      <!-- Indicador de pasos -->
       <div class="step-indicator" style="margin-bottom:24px">
         <div class="step active" id="wiz-step-1">1 · Datos del producto</div>
         <div class="step"        id="wiz-step-2">2 · Presentación y cantidades</div>
@@ -153,68 +135,91 @@
         <div class="step"        id="wiz-step-4">4 · Confirmar</div>
       </div>
 
-      <!-- PASO 1: Datos del producto -->
+      <!-- PASO 1 -->
       <div id="wiz-panel-1">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
           <div class="card">
-            <div class="card-title">📋 Identificación</div>
-            <div style="display:flex;flex-direction:column;gap:12px">
-              <div class="inp-group"><label>Nombre del producto *</label><input id="wiz-name" placeholder="Ej: Aceite Ideal, Vela, Arroz…"></div>
-              <div class="inp-group"><label>Código (opcional, se genera automático)</label><input id="wiz-code" placeholder="Ej: ACE-002"></div>
-              <div class="inp-group">
-                <label>Categoría *</label>
+            <div class="card-title">🏷️ Identificación del producto</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="fld"><label>Descripción / Nombre *</label><input id="wiz-name" placeholder="Ej: Aceite Ideal, Vela San Judas…"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div class="fld"><label>Código interno</label><input id="wiz-code" placeholder="Ej: ACE-002"></div>
+                <div class="fld"><label>Código OEM / proveedor</label><input id="wiz-codeOEM" placeholder="Ej: PROD01002"></div>
+              </div>
+              <div class="fld"><label>Categoría *</label>
                 <select id="wiz-category" onchange="onWizardCategoryChange(this.value)">
                   <option value="">— Selecciona —</option>
                   <option>Granos</option><option>Aceites</option><option>Velas</option>
                   <option>Higiene</option><option>Bebidas</option><option>Condimentos</option><option>Harinas</option>
                 </select>
               </div>
+              <div class="fld"><label>Marca</label><input id="wiz-brand" placeholder="Ej: Ideal, Sinovela, Guatelinda…"></div>
+              <div class="fld"><label>Tamaño / Peso</label><input id="wiz-size" placeholder="Ej: 1L, 20cm, 50lb…"></div>
             </div>
           </div>
 
           <div class="card">
-            <div class="card-title">🏷️ Sub-nombres y atributos</div>
-            <div style="font-size:12px;color:var(--muted);margin-bottom:12px">
-              Los sub-nombres permiten búsquedas compuestas. Ej: buscar "san judas" encuentra todas las velas de ese tipo.
-            </div>
-            <div style="display:flex;flex-direction:column;gap:12px">
-              <div class="inp-group"><label>Sub-nombre A (tipo, variante…)</label><input id="wiz-subnameA" placeholder="Ej: San Judas, Vegetal, Negro…"></div>
-              <div class="inp-group"><label>Sub-nombre B (marca, origen…)</label><input id="wiz-subnameB" placeholder="Ej: Ideal, Guatelinda, Brillante…"></div>
-              <div class="inp-group"><label>Tamaño / Peso</label><input id="wiz-size" placeholder="Ej: 1L, 20cm, 50lb, 500g…"></div>
+            <div class="card-title">📊 Clasificaciones</div>
+            <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Permiten agrupar y filtrar productos en reportes. Ej: Aceites → Vegetal → Aureola.</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="fld"><label>Clasificación 1</label><input id="wiz-clasif1" placeholder="Ej: Aceites vegetales, Velas, Endulzantes…"></div>
+              <div class="fld"><label>Clasificación 2</label><input id="wiz-clasif2" placeholder="Ej: San Judas, Aromáticas, Refinerías…"></div>
+              <div class="fld"><label>Clasificación 3</label><input id="wiz-clasif3" placeholder="Ej: 20cm, Premium, Importado…"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div class="fld"><label>Sub-nombre A (búsqueda)</label><input id="wiz-subnameA" placeholder="Ej: San Judas, Vegetal…"></div>
+                <div class="fld"><label>Sub-nombre B (marca/origen)</label><input id="wiz-subnameB" placeholder="Ej: Ideal, Guatelinda…"></div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Filtros dinámicos según categoría -->
-        <div class="card" style="margin-top:16px">
+        <!-- Atributos dinámicos por categoría -->
+        <div class="card" style="margin-top:14px">
           <div class="card-title">🔖 Atributos específicos de la categoría</div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Selecciona una categoría arriba para ver los atributos disponibles.</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Selecciona una categoría arriba. Estos atributos se usarán para búsquedas compuestas (ej: "vela roja 20cm").</div>
           <div id="wiz-dynamic-filters" style="display:flex;gap:12px;flex-wrap:wrap">
             <div style="font-size:12px;color:var(--muted)">— Sin categoría seleccionada —</div>
           </div>
-          <!-- Inputs ocultos para color/design que pueden no estar en los filtros dinámicos -->
-          <input type="hidden" id="wiz-color" value="">
-          <input type="hidden" id="wiz-design" value="">
-          <input type="hidden" id="wiz-aroma" value="">
+          <input type="hidden" id="wiz-color-val" value="">
+          <input type="hidden" id="wiz-design-val" value="">
+        </div>
+
+        <!-- Config. -->
+        <div class="card" style="margin-top:14px">
+          <div class="card-title">⚙️ Configuración fiscal y ventas</div>
+          <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end">
+            <div class="erp-field w-md"><label>% IVA</label>
+              <select id="wiz-iva" style="width:90px">
+                <option value="12">12%</option><option value="0">Exento</option>
+              </select>
+            </div>
+            <div class="erp-field w-md"><label>% Máx. descuento</label><input type="number" id="wiz-maxdiscount" value="0" style="width:80px"></div>
+            <label class="erp-check"><input type="checkbox" id="wiz-useExpiry"> Usa fecha de vencimiento</label>
+            <label class="erp-check"><input type="checkbox" id="wiz-highlighted"> Destacado en catálogo</label>
+          </div>
         </div>
       </div>
 
-      <!-- PASO 2: Presentación y cantidades -->
+      <!-- PASO 2 -->
       <div id="wiz-panel-2" style="display:none">
-        <div class="alert-banner alert-info">ℹ️ Registra <strong>cómo compraste</strong> (cajas, sacos). El sistema calculará automáticamente cuántas unidades quedan disponibles para vender.</div>
+        <div class="alert-banner alert-info">ℹ️ Registra <strong>cómo recibiste el producto</strong>. El sistema calculará cuántas unidades quedan disponibles para vender en diferentes presentaciones.</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
           <div class="card">
-            <div class="card-title">📦 Cómo llegó el producto</div>
-            <div style="display:flex;flex-direction:column;gap:12px">
-              <div class="inp-group">
-                <label>Tipo de presentación de compra</label>
+            <div class="card-title">📦 Presentación de compra</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="fld"><label>Unidad de medida de compra</label>
                 <select id="wiz-buyPres" onchange="updateCalcUnits()">
                   <option>Caja</option><option>Saco</option><option>Galón</option>
                   <option>Paquete</option><option>Botella</option><option>Bolsa</option><option>Unidad</option>
                 </select>
               </div>
-              <div class="inp-group"><label>Unidades por presentación</label><input type="number" id="wiz-unitsPerPres" value="12" min="1" oninput="updateCalcUnits()" placeholder="Ej: 12 botellas por caja"></div>
-              <div class="inp-group"><label>Cantidad de presentaciones recibidas</label><input type="number" id="wiz-numPres" value="5" min="1" oninput="updateCalcUnits()" placeholder="Ej: 5 cajas"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div class="fld"><label>Unidades por presentación</label><input type="number" id="wiz-unitsPerPres" value="12" min="1" oninput="updateCalcUnits()"></div>
+                <div class="fld"><label>Equivalencia inventario</label><input type="number" id="wiz-eqInv" value="1.000000" step="0.000001"></div>
+              </div>
+              <div class="fld"><label>Cantidad de presentaciones recibidas</label><input type="number" id="wiz-numPres" value="5" min="1" oninput="updateCalcUnits()"></div>
             </div>
           </div>
 
@@ -224,61 +229,187 @@
               <div class="pres-calc-total" id="wiz-calc-total">60 unidades</div>
               <div class="pres-calc-detail" id="wiz-calc-detail">5 Caja(s) × 12 uds. = 60 en inventario</div>
             </div>
-            <div class="card-title" style="margin-top:16px">🛒 Se podrá vender como:</div>
+            <div class="card-title" style="margin-top:14px">🛒 Unidades de venta disponibles:</div>
             <div class="unit-pills" id="wiz-sell-units">
               <span class="unit-pill active">Caja completa</span>
               <span class="unit-pill">Unidad suelta</span>
             </div>
-            <div style="font-size:11px;color:var(--muted);margin-top:8px">Al vender una caja completa se descontarán 12 unidades del total.</div>
           </div>
 
           <div class="card">
-            <div class="card-title">🏭 Destino y fecha</div>
-            <div style="display:flex;flex-direction:column;gap:12px">
-              <div class="inp-group"><label>Bodega destino</label><select id="wiz-warehouse"><option>Principal</option><option>Norte</option><option>Sur</option></select></div>
-              <div class="inp-group"><label>Fecha de ingreso</label><input type="date" id="wiz-entryDate" value="2026-03-12"></div>
-              <div class="inp-group"><label>Hora del documento</label><input type="time" id="wiz-entryTime" value="09:00"></div>
+            <div class="card-title">🏭 Destino y fechas</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="fld"><label>Bodega destino</label><select id="wiz-warehouse"><option>Principal</option><option>Norte</option><option>Sur</option></select></div>
+              <div class="fld"><label>Fecha de ingreso</label><input type="date" id="wiz-entryDate" value="2026-03-14"></div>
+              <div class="fld"><label>Hora del documento</label><input type="time" id="wiz-entryTime" value="09:00"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- PASO 3: Factura y precios -->
+      <!-- PASO 3 -->
       <div id="wiz-panel-3" style="display:none">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
           <div class="card">
             <div class="card-title">🧾 Datos de la factura del proveedor</div>
-            <div style="display:flex;flex-direction:column;gap:12px">
-              <div class="inp-group"><label>Número de factura</label><input id="wiz-invoiceNum" placeholder="Ej: F-2035"></div>
-              <div class="inp-group"><label>Fecha de la factura</label><input type="date" id="wiz-invoiceDate" value="2026-03-11"></div>
-              <div class="inp-group"><label>Proveedor</label><select id="wiz-supplier"><option>Guatelinda S.A.</option><option>Dist. García</option><option>Brillante S.A.</option><option>Otro</option></select></div>
-              <div class="inp-group"><label>Total pagado (Q)</label><input type="number" id="wiz-totalPaid" placeholder="0.00"></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div class="fld"><label>N° de factura</label><input id="wiz-invoiceNum" placeholder="Ej: F-2035"></div>
+                <div class="fld"><label>Fecha de factura</label><input type="date" id="wiz-invoiceDate" value="2026-03-13"></div>
+              </div>
+              <div class="fld"><label>Proveedor</label>
+                <select id="wiz-supplier">
+                  <option>Guatelinda S.A.</option><option>Dist. García</option>
+                  <option>Brillante S.A.</option><option>Sinovela</option><option>Otro</option>
+                </select>
+              </div>
+              <div class="fld"><label>Total pagado (Q)</label><input type="number" id="wiz-totalPaid" placeholder="0.00" step="0.01"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div class="fld"><label>Costo unitario (Q)</label><input type="number" id="wiz-costQ" placeholder="0.00" step="0.01" oninput="updateCalcUnits()"></div>
+                <div class="fld"><label>% Utilidad deseada</label><input type="number" id="wiz-pctUtility" placeholder="0.00" step="0.1" oninput="calcPriceFromUtility()"></div>
+              </div>
+              <div style="font-size:12px;color:var(--muted)">💡 Ingresa el costo y % utilidad para calcular el precio público sugerido automáticamente.</div>
             </div>
           </div>
+
           <div class="card">
             <div class="card-title">💰 Precios de venta</div>
-            <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Define los tres niveles de precio para este producto.</div>
-            <div style="display:flex;flex-direction:column;gap:12px">
-              <div class="inp-group"><label>💵 Precio público (detalle)</label><input type="number" id="wiz-pricePublic" placeholder="Q 0.00" step="0.01"></div>
-              <div class="inp-group"><label>📦 Precio mayorista</label><input type="number" id="wiz-priceMajor" placeholder="Q 0.00" step="0.01"></div>
-              <div class="inp-group"><label>⭐ Precio especial</label><input type="number" id="wiz-priceSpecial" placeholder="Q 0.00" step="0.01"></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="fld"><label>💵 Precio público (detalle)</label><input type="number" id="wiz-pricePublic" placeholder="0.00" step="0.01"></div>
+              <div class="fld"><label>📦 Precio mayorista</label><input type="number" id="wiz-priceMajor" placeholder="0.00" step="0.01"></div>
+              <div class="fld"><label>⭐ Precio especial</label><input type="number" id="wiz-priceSpecial" placeholder="0.00" step="0.01"></div>
+              <div class="fld"><label>🏷️ Precio de oferta</label><input type="number" id="wiz-priceOffer" placeholder="0.00" step="0.01"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div class="fld"><label>Fecha inicio oferta</label><input type="date" id="wiz-offerFrom"></div>
+                <div class="fld"><label>Fecha fin oferta</label><input type="date" id="wiz-offerTo"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- PASO 4: Confirmar -->
+      <!-- PASO 4 -->
       <div id="wiz-panel-4" style="display:none">
-        <div id="wiz-confirm-summary">
-          <!-- Renderizado por JS al llegar al paso 4 -->
+        <div id="wiz-confirm-summary"><!-- Generado por JS --></div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+        <button id="wiz-btn-back"    class="btn btn-outline"                                    style="display:none" onclick="wizardBack()">← Anterior</button>
+        <button id="wiz-btn-next"    class="btn btn-owner"                                                           onclick="wizardNext()">Siguiente →</button>
+        <button id="wiz-btn-confirm" class="btn btn-primary" style="background:var(--ok);display:none"              onclick="wizardConfirm()">✅ Registrar en inventario</button>
+      </div>
+    </div>
+
+    <!-- FACTURACIÓN -->
+    <div class="panel" id="owner-invoice">
+      <div class="page-title">🧾 Facturación</div>
+      <div class="page-sub">Factura electrónica de contado · Depósito San Miguel</div>
+
+      <!-- Header de factura -->
+      <div class="invoice-header">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.3px">Empresa</div>
+            <div style="font-size:15px;font-weight:700">Depósito San Miguel</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.3px">No. de Factura</div>
+            <div class="invoice-num-big" id="inv-num">7811</div>
+          </div>
+        </div>
+        <div class="invoice-header-grid">
+          <div class="erp-field"><label>Tipo de documento</label><select><option>Factura Electrónica Contado</option><option>Factura Crédito</option><option>Nota de crédito</option></select></div>
+          <div class="erp-field"><label>No. Caja</label><select style="width:80px"><option>C01</option><option>C02</option><option>C03</option></select></div>
+          <div class="erp-field"><label>Vendedor</label><select><option>0 — PVENTA</option><option>1 — María G.</option><option>2 — Pedro L.</option></select></div>
+          <div class="erp-field"><label>Cliente cód.</label><input placeholder="CF" style="width:80px" value="CF"></div>
+          <div class="erp-field w-lg"><label>Nombre</label><input value="CONSUMIDOR FINAL"></div>
+          <div class="erp-field w-md"><label>No. de NIT</label><input value="CF" style="width:100px"></div>
+          <div class="erp-field"><label>Fecha</label><input type="date" value="2026-03-14" style="width:145px"></div>
+          <div class="erp-field"><label>Hora</label><input type="time" value="10:18" style="width:110px"></div>
+          <div class="erp-field"><label>Forma de pago</label>
+            <select style="width:130px">
+              <option>● Contado</option><option>○ Recibo</option><option>○ Crédito</option>
+            </select>
+          </div>
         </div>
       </div>
 
-      <!-- Botones de navegación del wizard -->
-      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
-        <button id="wiz-btn-back"    class="btn btn-outline"  style="display:none"        onclick="wizardBack()">← Anterior</button>
-        <button id="wiz-btn-next"    class="btn btn-owner"                                onclick="wizardNext()">Siguiente →</button>
-        <button id="wiz-btn-confirm" class="btn btn-primary"  style="display:none;background:var(--ok)" onclick="wizardConfirm()">✅ Registrar en inventario</button>
+      <!-- Buscador de producto -->
+      <div style="display:flex;gap:10px;margin-bottom:12px;align-items:flex-end">
+        <div class="erp-field" style="flex:1">
+          <label>🔍 Agregar producto (nombre, código, sub-nombre…)</label>
+          <input id="inv-search-input" placeholder="Ej: san judas, ACE-002, vela roja, leche saco…"
+                 oninput="renderProdSearchTable(this.value)"
+                 onfocus="openModal('modal-prod-search');renderProdSearchTable(this.value)">
+        </div>
+        <button class="btn btn-owner" onclick="openModal('modal-prod-search');renderProdSearchTable('')">🔍 Buscar producto</button>
+      </div>
+
+      <!-- Ítems de la factura -->
+      <div class="invoice-body">
+        <div class="invoice-items-header">
+          <div>Descripción</div>
+          <div style="text-align:center">Cantidad</div>
+          <div style="text-align:right">Precio unit.</div>
+          <div style="text-align:right">Sub-total</div>
+          <div style="text-align:center">Quitar</div>
+        </div>
+        <div id="invoice-items-body">
+          <div class="invoice-item-row" style="color:var(--muted);font-size:13px;grid-template-columns:1fr">
+            Sin productos. Usa el buscador para agregar.
+          </div>
+        </div>
+      </div>
+
+      <!-- Totales -->
+      <div class="invoice-totals">
+        <div class="inv-total-row"><div class="inv-lbl">Sub-total</div><div class="inv-val" id="inv-subtotal">Q 0.00</div></div>
+        <div class="inv-total-row"><div class="inv-lbl">IVA (12%)</div><div class="inv-val" id="inv-iva">Q 0.00</div></div>
+        <div class="inv-total-row grand"><div class="inv-lbl" style="font-weight:700">TOTAL</div><div class="inv-val" id="inv-total">Q 0.00</div></div>
+      </div>
+
+      <!-- Formas de pago -->
+      <div class="card" style="margin-top:14px">
+        <div class="card-title">💳 Forma de pago</div>
+        <div class="payment-grid">
+          <div class="payment-method" onclick="selectPaymentMethod('efectivo',this)">
+            <div class="pm-icon">💵</div>
+            <div><div class="pm-label">Efectivo</div><div class="pm-sub">01EFECTIVO</div></div>
+          </div>
+          <div class="payment-method" onclick="selectPaymentMethod('cheque',this)">
+            <div class="pm-icon">📄</div>
+            <div><div class="pm-label">Cheque</div><div class="pm-sub">02CHEQUE</div></div>
+          </div>
+          <div class="payment-method" onclick="selectPaymentMethod('visa',this)">
+            <div class="pm-icon">💳</div>
+            <div><div class="pm-label">Tarjeta Visa</div><div class="pm-sub">03TARJETA</div></div>
+          </div>
+          <div class="payment-method" onclick="selectPaymentMethod('credomatic',this)">
+            <div class="pm-icon">💳</div>
+            <div><div class="pm-label">Tarjeta Credomatic</div><div class="pm-sub">04TARJETA</div></div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:flex-end;margin-bottom:12px">
+          <div class="erp-field" style="flex:0 0 180px">
+            <label>Monto recibido (Q)</label>
+            <input type="number" id="pay-amount-input" placeholder="0.00" step="0.01" oninput="recalcPayment()"
+                   style="font-size:18px;font-weight:700;font-family:'DM Mono',monospace;text-align:right">
+          </div>
+          <div style="font-size:12px;color:var(--muted)">Ingresa el monto entregado por el cliente para calcular el vuelto.</div>
+        </div>
+
+        <div class="payment-summary">
+          <div class="pay-box total"><div class="pb-label">Total factura</div><div class="pb-val" id="pay-total-val">Q 0.00</div></div>
+          <div class="pay-box change"><div class="pb-label">Vuelto</div><div class="pb-val" id="pay-change-val">Q 0.00</div></div>
+          <div class="pay-box pending"><div class="pb-label">Pendiente</div><div class="pb-val" id="pay-pending-val">Q 0.00</div></div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:14px">
+          <button class="btn btn-outline" onclick="invoiceItems=[];renderInvoiceItems()">🗑 Limpiar</button>
+          <button class="btn btn-owner" id="confirm-invoice-btn" onclick="confirmInvoice()">✅ Confirmar y emitir factura</button>
+        </div>
       </div>
     </div>
 
@@ -287,25 +418,20 @@
       <div class="page-title">📒 Kardex</div>
       <div class="page-sub">Historial de entradas, salidas y saldo por producto</div>
       <div class="filter-bar">
-        <div class="search-compound" style="flex:2"><span class="s-icon">🔍</span><input placeholder="Producto, código…" value="Aceite Ideal 1L"></div>
-        <div class="inp-group"><label>Bodega</label><select style="width:120px"><option>Todas</option><option selected>Principal</option><option>Norte</option><option>Sur</option></select></div>
-        <div class="inp-group"><label>Tipo</label><select style="width:110px"><option>Todos</option><option>📥 Entradas</option><option>📤 Salidas</option></select></div>
-        <div class="inp-group"><label>Desde</label><input type="date" style="width:140px" value="2026-03-01"></div>
-        <div class="inp-group"><label>Hasta</label><input type="date" style="width:140px" value="2026-03-12"></div>
+        <div class="search-compound" style="flex:2"><span class="s-icon">🔍</span><input placeholder="Producto, código…"></div>
+        <div class="erp-field"><label>Bodega</label><select style="width:120px"><option>Todas</option><option>Principal</option><option>Norte</option><option>Sur</option></select></div>
+        <div class="erp-field"><label>Tipo</label><select style="width:110px"><option>Todos</option><option>📥 Entradas</option><option>📤 Salidas</option></select></div>
+        <div class="erp-field"><label>Desde</label><input type="date" style="width:140px" value="2026-03-01"></div>
+        <div class="erp-field"><label>Hasta</label><input type="date" style="width:140px" value="2026-03-14"></div>
         <button class="btn btn-owner btn-sm">🔍 Aplicar</button>
       </div>
       <div style="margin-bottom:14px">
-        <span style="font-size:12px;font-weight:600;color:var(--muted);margin-right:8px">Acceso rápido:</span>
+        <span style="font-size:12px;font-weight:600;color:var(--muted);margin-right:8px">Rápido:</span>
         <button class="quick-range-btn" onclick="setDateRange('hoy',this)">Hoy</button>
-        <button class="quick-range-btn active" onclick="setDateRange('semana',this)">Esta semana</button>
-        <button class="quick-range-btn" onclick="setDateRange('mes',this)">Este mes</button>
+        <button class="quick-range-btn active" onclick="setDateRange('semana',this)">Semana</button>
+        <button class="quick-range-btn" onclick="setDateRange('mes',this)">Mes</button>
         <button class="quick-range-btn" onclick="setDateRange('trimestre',this)">Trimestre</button>
         <button class="quick-range-btn" onclick="setDateRange('anio',this)">Año</button>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px">
-        <div class="stat-card"><div class="s-icon">📥</div><div class="s-val">120</div><div class="s-label">Entradas (período)</div></div>
-        <div class="stat-card"><div class="s-icon">📤</div><div class="s-val">120</div><div class="s-label">Salidas (período)</div></div>
-        <div class="stat-card"><div class="s-icon">🏷️</div><div class="s-val">0</div><div class="s-label">Saldo actual</div><div class="s-delta delta-down">⚠️ Agotado</div></div>
       </div>
       <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px">
         <button class="btn btn-outline btn-sm" onclick="exportKardex('pdf')">⬇ PDF</button>
@@ -313,89 +439,47 @@
       </div>
       <div class="card" style="padding:0">
         <table class="tbl">
-          <thead><tr><th>Fecha / Hora</th><th>Tipo</th><th>Descripción</th><th>Bodega</th><th>Entrada</th><th>Salida</th><th>Saldo</th><th>N° Factura</th><th>Registrado por</th></tr></thead>
+          <thead><tr><th>Fecha / Hora</th><th>Tipo</th><th>Descripción</th><th>Bodega</th><th>Entrada</th><th>Salida</th><th>Saldo</th><th>N° Factura</th><th>Colaborador</th></tr></thead>
           <tbody>
             <tr><td class="mono" style="font-size:12px">01/03 08:00</td><td><span class="chip chip-ok">📥 Entrada</span></td><td>Pedido #P-085 · Guatelinda</td><td><span class="bodega-tag">Principal</span></td><td class="mono kardex-entry-in">+60</td><td style="color:var(--muted)">—</td><td class="mono" style="font-weight:700">60</td><td><span class="chip chip-ok">F-2024</span></td><td>Sistema</td></tr>
-            <tr><td class="mono" style="font-size:12px">03/03 10:30</td><td><span class="chip chip-danger">📤 Salida</span></td><td>Venta #1030 · Mayorista</td><td><span class="bodega-tag">Principal</span></td><td style="color:var(--muted)">—</td><td class="mono kardex-entry-out">-30</td><td class="mono" style="font-weight:700">30</td><td><span class="chip chip-ok">F-2025</span></td><td>María G.</td></tr>
-            <tr style="background:#FDECEB18"><td class="mono" style="font-size:12px">08/03 09:15</td><td><span class="chip chip-danger">📤 Salida</span></td><td>Venta #1038 · Sin factura</td><td><span class="bodega-tag">Principal</span></td><td style="color:var(--muted)">—</td><td class="mono kardex-entry-out">-50</td><td class="mono" style="font-weight:700">-20</td><td><span class="chip chip-danger">❌ Sin factura</span></td><td>Pedro L.</td></tr>
+            <tr><td class="mono" style="font-size:12px">03/03 10:30</td><td><span class="chip chip-danger">📤 Salida</span></td><td>Factura #7808 · Mayorista</td><td><span class="bodega-tag">Principal</span></td><td style="color:var(--muted)">—</td><td class="mono kardex-entry-out">-12</td><td class="mono" style="font-weight:700">48</td><td><span class="chip chip-ok">7808</span></td><td>María G.</td></tr>
+            <tr style="background:#FDECEB18"><td class="mono" style="font-size:12px">08/03 09:15</td><td><span class="chip chip-danger">📤 Salida</span></td><td>Venta sin factura</td><td><span class="bodega-tag">Principal</span></td><td style="color:var(--muted)">—</td><td class="mono kardex-entry-out">-10</td><td class="mono" style="font-weight:700">38</td><td><span class="chip chip-danger">❌ Sin factura</span></td><td>Pedro L.</td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- VENTAS -->
+    <!-- VENTAS (simplificado) -->
     <div class="panel" id="owner-sales">
       <div class="page-title">💰 Reportes de ventas</div>
-      <div class="page-sub">Historial, tendencias y ventas sin factura</div>
+      <div class="page-sub">Historial de facturas emitidas</div>
       <div class="stat-grid" style="grid-template-columns:repeat(3,1fr)">
         <div class="stat-card"><div class="s-icon">📅</div><div class="s-val">Q 4,820</div><div class="s-label">Ventas hoy</div></div>
-        <div class="stat-card"><div class="s-icon">📆</div><div class="s-val">Q 29,450</div><div class="s-label">Ventas semana</div></div>
-        <div class="stat-card"><div class="s-icon">🗓️</div><div class="s-val">Q 118,300</div><div class="s-label">Ventas mes</div></div>
+        <div class="stat-card"><div class="s-icon">📆</div><div class="s-val">Q 29,450</div><div class="s-label">Esta semana</div></div>
+        <div class="stat-card"><div class="s-icon">🗓️</div><div class="s-val">Q 118,300</div><div class="s-label">Este mes</div></div>
       </div>
-      <div id="sales-tabs">
-        <div class="sub-tabs">
-          <button class="sub-tab active" onclick="showSubTab('sales-tabs','sales-historial',this)">📋 Historial</button>
-          <button class="sub-tab"        onclick="showSubTab('sales-tabs','sales-tendencias',this)">📈 Tendencias</button>
-          <button class="sub-tab"        onclick="showSubTab('sales-tabs','sales-sin-factura',this)">⚠️ Sin factura</button>
-        </div>
-        <div class="sub-panel active" id="sales-historial">
-          <div class="filter-bar">
-            <div class="search-compound" style="flex:2"><span class="s-icon">🔍</span><input placeholder="Producto, código, colaborador…"></div>
-            <div class="inp-group"><label>Desde</label><input type="date" style="width:140px"></div>
-            <div class="inp-group"><label>Hasta</label><input type="date" style="width:140px"></div>
-            <div class="inp-group"><label>Categoría</label><select style="width:120px"><option>Todas</option><option>Granos</option><option>Aceites</option><option>Velas</option></select></div>
-            <button class="btn btn-owner btn-sm">Filtrar</button>
-            <button class="btn btn-outline btn-sm">⬇ Export</button>
-          </div>
-          <div style="margin-bottom:14px">
-            <span style="font-size:12px;font-weight:600;color:var(--muted);margin-right:8px">Rango rápido:</span>
-            <button class="quick-range-btn" onclick="setDateRange('hoy',this)">Hoy</button>
-            <button class="quick-range-btn active" onclick="setDateRange('semana',this)">Semana</button>
-            <button class="quick-range-btn" onclick="setDateRange('mes',this)">Mes</button>
-            <button class="quick-range-btn" onclick="setDateRange('trimestre',this)">Trimestre</button>
-            <button class="quick-range-btn" onclick="setDateRange('anio',this)">Año</button>
-          </div>
-          <div class="card" style="padding:0">
-            <table class="tbl">
-              <thead><tr><th>Código</th><th>Fecha / Hora</th><th>Producto</th><th>Presentación vendida</th><th>Uds.</th><th>Total</th><th>Colaborador</th><th>N° Factura</th><th>Estado</th></tr></thead>
-              <tbody>
-                <tr><td><span class="prod-code">#1042</span></td><td class="mono" style="font-size:12px">12/03 09:14</td><td>Azúcar 50lb</td><td><span class="pres-tag">Saco ×2</span></td><td>2</td><td class="mono">Q 240.00</td><td>María G.</td><td class="mono" style="font-size:12px">F-2031</td><td><span class="chip chip-ok">✅ Pagado</span></td></tr>
-                <tr><td><span class="prod-code">#1041</span></td><td class="mono" style="font-size:12px">12/03 08:55</td><td>Aceite Ideal 1L</td><td><span class="pres-tag">Botella ×10</span></td><td>10</td><td class="mono">Q 385.00</td><td>Pedro L.</td><td class="mono" style="font-size:12px">F-2030</td><td><span class="chip chip-ok">✅ Pagado</span></td></tr>
-                <tr style="background:#FDECEB18"><td><span class="prod-code">#1038</span></td><td class="mono" style="font-size:12px">11/03 15:45</td><td>Café Montaña 250g</td><td><span class="pres-tag">Unid. ×3</span></td><td>3</td><td class="mono">Q 84.00</td><td>Ana R.</td><td style="color:var(--danger)">—</td><td><span class="chip chip-danger">❌ Sin factura</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="sub-panel" id="sales-tendencias">
-          <div class="card">
-            <div class="card-title">📅 Ventas mensuales — 2026</div>
-            <div class="chart-bars" style="height:140px">
-              <div class="bar-wrap"><div class="bar" style="height:55%;background:var(--owner-light)"></div><div class="bar-label">Ene</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:68%;background:var(--owner-light)"></div><div class="bar-label">Feb</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:45%;background:var(--owner-mid)"></div><div class="bar-label">Mar</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:18%;background:#E2DDD5"></div><div class="bar-label">Abr</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:18%;background:#E2DDD5"></div><div class="bar-label">May</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:18%;background:#E2DDD5"></div><div class="bar-label">Jun</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:18%;background:#E2DDD5"></div><div class="bar-label">Jul</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:18%;background:#E2DDD5"></div><div class="bar-label">Ago</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:18%;background:#E2DDD5"></div><div class="bar-label">Sep</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:18%;background:#E2DDD5"></div><div class="bar-label">Oct</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:18%;background:#E2DDD5"></div><div class="bar-label">Nov</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:75%;background:#E2DDD5"></div><div class="bar-label">Dic</div></div>
-            </div>
-          </div>
-        </div>
-        <div class="sub-panel" id="sales-sin-factura">
-          <div class="alert-banner alert-danger">⚠️ Ventas sin factura emitida.</div>
-          <div class="card" style="padding:0">
-            <table class="tbl">
-              <thead><tr><th>#Venta</th><th>Fecha</th><th>Producto</th><th>Total</th><th>Colaborador</th><th></th></tr></thead>
-              <tbody>
-                <tr><td class="mono">#1038</td><td class="mono" style="font-size:12px">11/03 15:45</td><td>Café Montaña ×3</td><td class="mono">Q 84.00</td><td>Ana R.</td><td><button class="btn btn-owner btn-sm">🧾 Emitir</button></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <div class="filter-bar">
+        <div class="search-compound" style="flex:2"><span class="s-icon">🔍</span><input placeholder="N° factura, cliente, producto…"></div>
+        <div class="erp-field"><label>Desde</label><input type="date" style="width:140px"></div>
+        <div class="erp-field"><label>Hasta</label><input type="date" style="width:140px"></div>
+        <button class="btn btn-owner btn-sm">Filtrar</button>
+        <button class="btn btn-outline btn-sm">⬇ Exportar</button>
+      </div>
+      <div style="margin-bottom:14px">
+        <button class="quick-range-btn" onclick="setDateRange('hoy',this)">Hoy</button>
+        <button class="quick-range-btn active" onclick="setDateRange('semana',this)">Semana</button>
+        <button class="quick-range-btn" onclick="setDateRange('mes',this)">Mes</button>
+        <button class="quick-range-btn" onclick="setDateRange('trimestre',this)">Trimestre</button>
+      </div>
+      <div class="card" style="padding:0">
+        <table class="tbl">
+          <thead><tr><th>N° Factura</th><th>Fecha / Hora</th><th>Cliente</th><th>NIT</th><th>Forma pago</th><th>Total</th><th>Colaborador</th><th>Estado</th></tr></thead>
+          <tbody>
+            <tr><td class="mono" style="font-weight:700">7810</td><td class="mono" style="font-size:12px">14/03 10:18</td><td>Comercial López</td><td class="mono">12345-6</td><td>💵 Efectivo</td><td class="mono">Q 1,800.00</td><td>María G.</td><td><span class="chip chip-ok">✅ Emitida</span></td></tr>
+            <tr><td class="mono" style="font-weight:700">7809</td><td class="mono" style="font-size:12px">13/03 15:30</td><td>Consumidor Final</td><td class="mono">CF</td><td>💳 Visa</td><td class="mono">Q 385.00</td><td>Pedro L.</td><td><span class="chip chip-ok">✅ Emitida</span></td></tr>
+            <tr style="background:#FDECEB18"><td class="mono" style="font-weight:700">7808</td><td class="mono" style="font-size:12px">12/03 09:14</td><td>Consumidor Final</td><td class="mono">CF</td><td>💵 Efectivo</td><td class="mono">Q 84.00</td><td>Ana R.</td><td><span class="chip chip-danger">❌ Sin factura</span></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -411,11 +495,11 @@
         <div class="sub-panel active" id="prices-tabla">
           <div class="card" style="padding:0">
             <table class="tbl">
-              <thead><tr><th>Código</th><th>Producto</th><th>💵 Público</th><th>📦 Mayorista</th><th>⭐ Especial</th><th>Ref. comp.</th><th></th></tr></thead>
+              <thead><tr><th>Código</th><th>Producto</th><th>Unidad</th><th>💵 Público</th><th>📦 Mayorista</th><th>⭐ Especial</th><th>🏷️ Oferta</th><th>Ref. comp.</th><th></th></tr></thead>
               <tbody>
-                <tr><td><span class="prod-code">AZU-001</span></td><td><strong>Azúcar 50lb</strong></td><td><input class="price-input" value="Q 120.00"></td><td><input class="price-input" value="Q 108.00"></td><td><input class="price-input" value="Q 100.00"></td><td class="mono" style="color:var(--muted)">Q 118.00</td><td><button class="btn btn-owner btn-sm" onclick="savePrice(this)">💾</button></td></tr>
-                <tr><td><span class="prod-code">ACE-002</span></td><td><strong>Aceite Ideal 1L</strong></td><td><input class="price-input" value="Q 38.50"></td><td><input class="price-input" value="Q 34.00"></td><td><input class="price-input" value="Q 31.00"></td><td class="mono" style="color:var(--muted)">Q 40.00</td><td><button class="btn btn-owner btn-sm" onclick="savePrice(this)">💾</button></td></tr>
-                <tr><td><span class="prod-code">VEL-010</span></td><td><strong>Vela San Judas 20cm</strong></td><td><input class="price-input" value="Q 5.00"></td><td><input class="price-input" value="Q 4.20"></td><td><input class="price-input" value="Q 3.80"></td><td class="mono" style="color:var(--muted)">Q 5.50</td><td><button class="btn btn-owner btn-sm" onclick="savePrice(this)">💾</button></td></tr>
+                <tr><td><span class="prod-code">ACE-002</span></td><td>Aceite Ideal 1L</td><td><span class="pres-tag">Botella</span></td><td><input class="price-input" value="38.50"></td><td><input class="price-input" value="34.00"></td><td><input class="price-input" value="31.00"></td><td><input class="price-input" value="0.00"></td><td class="mono" style="color:var(--muted)">Q 40.00</td><td><button class="btn btn-owner btn-sm" onclick="savePrice(this)">💾</button></td></tr>
+                <tr><td><span class="prod-code">ACE-002</span></td><td>Aceite Ideal 1L</td><td><span class="pres-tag">Caja</span></td><td><input class="price-input" value="420.00"></td><td><input class="price-input" value="380.00"></td><td><input class="price-input" value="360.00"></td><td><input class="price-input" value="0.00"></td><td class="mono" style="color:var(--muted)">Q 460.00</td><td><button class="btn btn-owner btn-sm" onclick="savePrice(this)">💾</button></td></tr>
+                <tr><td><span class="prod-code">VEL-010</span></td><td>Vela San Judas 20cm</td><td><span class="pres-tag">Unidad</span></td><td><input class="price-input" value="5.00"></td><td><input class="price-input" value="4.20"></td><td><input class="price-input" value="3.80"></td><td><input class="price-input" value="0.00"></td><td class="mono" style="color:var(--muted)">Q 5.50</td><td><button class="btn btn-owner btn-sm" onclick="savePrice(this)">💾</button></td></tr>
               </tbody>
             </table>
           </div>
@@ -423,23 +507,18 @@
         <div class="sub-panel" id="prices-puntos">
           <div class="two-col">
             <div class="card">
-              <div class="card-title">⭐ Reglas de puntos</div>
-              <div style="display:flex;flex-direction:column;gap:12px">
-                <div class="inp-group"><label>Puntos por cada Q de compra</label><input type="number" value="1" style="width:80px"></div>
-                <div class="inp-group"><label>Mínimo para precio especial</label><input type="number" value="500" style="width:80px"></div>
-                <div class="inp-group"><label>Puntos para nivel VIP</label><input type="number" value="2000" style="width:80px"></div>
+              <div class="card-title">⭐ Reglas del sistema de puntos</div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div class="fld"><label>Puntos por cada Q de compra</label><input type="number" value="1" style="width:80px"></div>
+                <div class="fld"><label>Puntos mínimos para precio especial</label><input type="number" value="500" style="width:80px"></div>
+                <div class="fld"><label>Puntos para nivel VIP</label><input type="number" value="2000" style="width:80px"></div>
                 <button class="btn btn-owner btn-sm">💾 Guardar</button>
               </div>
             </div>
             <div class="card" style="padding:0">
-              <div style="padding:16px 20px" class="card-title">🏆 Clientes con más puntos</div>
-              <table class="tbl">
-                <thead><tr><th>Cliente</th><th>Puntos</th><th>Nivel</th></tr></thead>
-                <tbody>
-                  <tr><td>Comercial López</td><td><span class="points-badge">⭐ 2,340</span></td><td><span class="chip chip-purple">VIP</span></td></tr>
-                  <tr><td>Tienda Martínez</td><td><span class="points-badge">⭐ 850</span></td><td><span class="chip chip-blue">Especial</span></td></tr>
-                </tbody>
-              </table>
+              <div style="padding:14px 18px" class="card-title">🏆 Clientes con más puntos</div>
+              <table class="tbl"><thead><tr><th>Cliente</th><th>Puntos</th><th>Nivel</th></tr></thead>
+              <tbody><tr><td>Comercial López</td><td><span class="points-badge">⭐ 2,340</span></td><td><span class="chip chip-purple">VIP</span></td></tr></tbody></table>
             </div>
           </div>
         </div>
@@ -450,60 +529,30 @@
     <div class="panel" id="owner-orders">
       <div class="page-title">📋 Pedidos y proveedores</div>
       <div class="page-sub">Órdenes de compra y confirmación por correo</div>
-      <div style="display:flex;gap:10px;margin-bottom:20px">
-        <button class="btn btn-owner" onclick="openModal('modal-new-order')">+ Nuevo pedido</button>
+      <div style="display:flex;gap:10px;margin-bottom:18px">
+        <button class="btn btn-owner">+ Nuevo pedido</button>
         <button class="btn btn-outline" onclick="openModal('modal-email')">📧 Confirmar pago</button>
       </div>
-      <div id="orders-tabs">
-        <div class="sub-tabs">
-          <button class="sub-tab active" onclick="showSubTab('orders-tabs','orders-activos',this)">🚚 Activos</button>
-          <button class="sub-tab"        onclick="showSubTab('orders-tabs','orders-historial',this)">📁 Historial</button>
-          <button class="sub-tab"        onclick="showSubTab('orders-tabs','orders-proveedores',this)">🏭 Proveedores</button>
-        </div>
-        <div class="sub-panel active" id="orders-activos">
-          <div class="card" style="padding:0">
-            <table class="tbl">
-              <thead><tr><th>Pedido</th><th>Proveedor</th><th>Producto</th><th>Total</th><th>Fecha</th><th>Estado</th><th></th></tr></thead>
-              <tbody>
-                <tr><td class="mono">#P-088</td><td>Guatelinda</td><td>Azúcar 50lb ×50</td><td class="mono">Q 5,800</td><td>10/03</td><td><span class="chip chip-pending">🚚 En tránsito</span></td><td><button class="btn btn-outline btn-sm" onclick="openModal('modal-email')">📧</button></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="sub-panel" id="orders-historial">
-          <div class="card" style="padding:0">
-            <table class="tbl">
-              <thead><tr><th>Pedido</th><th>Proveedor</th><th>Producto</th><th>Total</th><th>Estado</th></tr></thead>
-              <tbody>
-                <tr><td class="mono">#P-086</td><td>Brillante S.A.</td><td>Arroz ×200</td><td class="mono">Q 1,400</td><td><span class="chip chip-ok">✅ Pagado</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="sub-panel" id="orders-proveedores">
-          <div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="btn btn-owner btn-sm">+ Agregar</button></div>
-          <div class="card" style="padding:0">
-            <table class="tbl">
-              <thead><tr><th>Proveedor</th><th>Contacto</th><th>Correo</th><th>NIT</th><th></th></tr></thead>
-              <tbody>
-                <tr><td><strong>Guatelinda S.A.</strong></td><td>Roberto Paz</td><td class="mono" style="font-size:12px">rpaz@guatelinda.gt</td><td><span class="chip chip-blue">12345-6</span></td><td><button class="btn btn-outline btn-sm" onclick="openModal('modal-email')">📧</button></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <div class="card" style="padding:0">
+        <table class="tbl">
+          <thead><tr><th>Pedido</th><th>Proveedor</th><th>Producto</th><th>Total</th><th>Fecha</th><th>Estado</th><th></th></tr></thead>
+          <tbody>
+            <tr><td class="mono">#P-088</td><td>Guatelinda</td><td>Azúcar 50lb ×50</td><td class="mono">Q 5,800</td><td>10/03</td><td><span class="chip chip-pending">🚚 En tránsito</span></td><td><button class="btn btn-outline btn-sm" onclick="openModal('modal-email')">📧</button></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
     <!-- CLIENTES -->
     <div class="panel" id="owner-clients">
       <div class="page-title">👥 Clientes</div>
-      <div class="page-sub">Pagos, adelantos, saldos y puntos de lealtad</div>
+      <div class="page-sub">Pagos, adelantos, saldos y puntos</div>
       <div class="card" style="padding:0">
         <table class="tbl">
-          <thead><tr><th>Cliente</th><th>Tipo</th><th>Precio</th><th>Puntos</th><th>Saldo</th><th>Estado</th><th></th></tr></thead>
+          <thead><tr><th>Cliente</th><th>NIT</th><th>Tipo</th><th>Precio</th><th>Puntos</th><th>Saldo</th><th>Estado</th><th></th></tr></thead>
           <tbody>
-            <tr><td><strong>Comercial López</strong></td><td><span class="chip chip-blue">Mayorista</span></td><td><span class="chip chip-purple">⭐ Especial</span></td><td><span class="points-badge">⭐ 2,340</span></td><td class="mono" style="color:var(--danger)">-Q 800</td><td><span class="chip chip-danger">💳 Debe</span></td><td><button class="btn btn-outline btn-sm" onclick="openModal('modal-payment')">Ver</button></td></tr>
-            <tr><td><strong>Tienda Martínez</strong></td><td><span class="chip chip-blue">Mayorista</span></td><td><span class="chip chip-blue">📦 Mayor</span></td><td><span class="points-badge">⭐ 850</span></td><td class="mono" style="color:var(--ok)">+Q 500</td><td><span class="chip chip-ok">✅ Adelanto</span></td><td><button class="btn btn-outline btn-sm" onclick="openModal('modal-payment')">Ver</button></td></tr>
+            <tr><td><strong>Comercial López</strong></td><td class="mono">12345-6</td><td><span class="chip chip-blue">Mayorista</span></td><td><span class="chip chip-purple">⭐ Especial</span></td><td><span class="points-badge">⭐ 2,340</span></td><td class="mono" style="color:var(--danger)">-Q 800</td><td><span class="chip chip-danger">💳 Debe</span></td><td><button class="btn btn-outline btn-sm" onclick="openModal('modal-payment')">Ver</button></td></tr>
+            <tr><td><strong>Tienda Martínez</strong></td><td class="mono">78901-2</td><td><span class="chip chip-blue">Mayorista</span></td><td><span class="chip chip-blue">📦 Mayor</span></td><td><span class="points-badge">⭐ 850</span></td><td class="mono" style="color:var(--ok)">+Q 500</td><td><span class="chip chip-ok">✅ Adelanto</span></td><td><button class="btn btn-outline btn-sm" onclick="openModal('modal-payment')">Ver</button></td></tr>
           </tbody>
         </table>
       </div>
@@ -513,17 +562,15 @@
 </div><!-- /app-owner -->
 
 
-<!-- ════════════════════════════════════════════
-     APP — COLABORADOR
-════════════════════════════════════════════ -->
+<!-- ════════════ APP COLABORADOR ════════════ -->
 <div class="app" id="app-employee">
   <div class="topbar">
     <div class="topbar-logo">Store<span>OS</span></div>
     <nav class="topbar-nav">
-      <button class="nav-item active emp" onclick="showPanel('emp','sale',this)">🧾 Registrar venta</button>
+      <button class="nav-item active emp" onclick="showPanel('emp','invoice',this)">🧾 Facturar</button>
       <button class="nav-item"            onclick="showPanel('emp','inv',this)">📦 Inventario</button>
       <button class="nav-item"            onclick="showPanel('emp','search',this)">🔍 Buscar</button>
-      <button class="nav-item" id="emp-nav-register" style="display:none" onclick="showPanel('emp','register',this)">➕ Registrar producto</button>
+      <button class="nav-item" id="emp-nav-register" style="display:none" onclick="showPanel('emp','register',this)">➕ Registrar</button>
       <button class="nav-item" id="emp-nav-prices"   style="display:none" onclick="showPanel('emp','update-prices',this)">🏷️ Precios</button>
     </nav>
     <div class="topbar-right">
@@ -533,98 +580,78 @@
       <button class="logout-btn" onclick="logout()">← Salir</button>
     </div>
   </div>
-
   <div class="main">
 
-    <!-- VENTA -->
-    <div class="panel active" id="emp-sale">
-      <div class="page-title">🧾 Registrar venta</div>
-      <div class="page-sub">Ticket #1043 · Cajero: María G.</div>
-      <div class="alert-banner alert-warn">⚠️ <strong>Azúcar 50lb</strong> agotado — no disponible.</div>
-      <div class="sale-form">
-        <div class="card-title" style="margin-bottom:12px">➕ Agregar producto</div>
-        <div style="display:grid;grid-template-columns:1fr 160px 100px auto;gap:10px;align-items:end">
-          <div class="inp-group">
-            <label>Buscar (nombre, código, sub-nombre…)</label>
-            <input id="sell-prod-input" placeholder="Ej: san judas, ACE-002, botella aceite…"
-                   list="sell-prod-list" oninput="onSellProductSelect(this)">
-            <datalist id="sell-prod-list"></datalist>
-            <div id="sell-stock-info" style="margin-top:4px"></div>
-          </div>
-          <div class="inp-group">
-            <label>Unidad de venta</label>
-            <select id="sell-unit-select"><option>Unidad</option></select>
-          </div>
-          <div class="inp-group">
-            <label>Cantidad</label>
-            <input type="number" value="1" min="1">
-          </div>
-          <button class="btn btn-primary" style="margin-top:auto">+ Añadir</button>
+    <!-- FACTURAR (colaborador) — misma UI que dueño -->
+    <div class="panel active" id="emp-invoice">
+      <div class="page-title">🧾 Facturación</div>
+      <div class="page-sub">Cajero: María G. · Caja C01</div>
+      <div class="invoice-header">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+          <div><div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase">Empresa</div><div style="font-size:15px;font-weight:700">Depósito San Miguel</div></div>
+          <div style="text-align:right"><div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase">N° Factura</div><div class="invoice-num-big">7811</div></div>
         </div>
-        <div style="font-size:12px;color:var(--muted);margin-top:8px">💡 Busca "san judas" para ver todas las velas de ese tipo, o escribe el código directo.</div>
+        <div class="invoice-header-grid">
+          <div class="erp-field"><label>Tipo documento</label><select><option>Factura Electrónica Contado</option></select></div>
+          <div class="erp-field w-lg"><label>Nombre cliente</label><input value="CONSUMIDOR FINAL"></div>
+          <div class="erp-field w-md"><label>NIT</label><input value="CF"></div>
+          <div class="erp-field"><label>Fecha</label><input type="date" value="2026-03-14"></div>
+          <div class="erp-field"><label>Hora</label><input type="time" value="10:18"></div>
+        </div>
       </div>
 
-      <div class="card" style="padding:0;margin-bottom:14px">
-        <div style="padding:14px 18px;border-bottom:1px solid var(--border)" class="card-title">🛒 Venta en curso — Ticket #1043</div>
-        <table class="tbl">
-          <thead><tr><th>Producto</th><th>Código</th><th>Unidad vendida</th><th>Precio</th><th>Qty</th><th>Subtotal</th><th></th></tr></thead>
-          <tbody>
-            <tr>
-              <td>Aceite Ideal 1L<div style="font-size:11px;color:var(--muted)">1L · Ideal</div></td>
-              <td><span class="prod-code">ACE-002</span></td>
-              <td><span class="pres-tag">Botella</span></td>
-              <td class="mono">Q 38.50</td>
-              <td><input type="number" value="3" style="width:55px;border:1px solid var(--border);border-radius:6px;padding:4px 6px;font-family:'DM Mono',monospace"></td>
-              <td class="mono"><strong>Q 115.50</strong></td>
-              <td><button style="background:none;border:none;cursor:pointer;font-size:16px;color:var(--danger)">🗑</button></td>
-            </tr>
-            <tr>
-              <td>Vela San Judas 20cm<div style="font-size:11px;color:var(--muted)">Beige · San Judas</div></td>
-              <td><span class="prod-code">VEL-010</span></td>
-              <td><span class="pres-tag">Unidad suelta</span></td>
-              <td class="mono">Q 5.00</td>
-              <td><input type="number" value="12" style="width:55px;border:1px solid var(--border);border-radius:6px;padding:4px 6px;font-family:'DM Mono',monospace"></td>
-              <td class="mono"><strong>Q 60.00</strong></td>
-              <td><button style="background:none;border:none;cursor:pointer;font-size:16px;color:var(--danger)">🗑</button></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="ticket-total" style="border-radius:0 0 var(--radius) var(--radius)">
-          <div><div class="tt-label">TOTAL VENTA</div><div class="tt-val">Q 175.50</div></div>
-          <div style="display:flex;gap:10px">
-            <button class="btn" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3)">🧾 Factura</button>
-            <button class="btn" style="background:white;color:var(--employee);font-weight:700">✅ Confirmar</button>
-          </div>
+      <div style="display:flex;gap:10px;margin-bottom:12px;align-items:flex-end">
+        <div class="erp-field" style="flex:1"><label>🔍 Buscar producto</label><input placeholder="Nombre, código, sub-nombre…" onfocus="openModal('modal-prod-search');renderProdSearchTable('')" oninput="renderProdSearchTable(this.value)"></div>
+        <button class="btn btn-primary" onclick="openModal('modal-prod-search');renderProdSearchTable('')">🔍 Buscar</button>
+      </div>
+
+      <div class="invoice-body">
+        <div class="invoice-items-header"><div>Descripción</div><div style="text-align:center">Cantidad</div><div style="text-align:right">Precio</div><div style="text-align:right">Sub-total</div><div style="text-align:center">Quitar</div></div>
+        <div id="invoice-items-body-emp" style="min-height:60px">
+          <div class="invoice-item-row" style="color:var(--muted);font-size:13px;grid-template-columns:1fr">Sin productos.</div>
+        </div>
+      </div>
+
+      <div class="invoice-totals">
+        <div class="inv-total-row grand"><div class="inv-lbl" style="font-weight:700">TOTAL</div><div class="inv-val" id="inv-total">Q 0.00</div></div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <div class="card-title">💳 Forma de pago</div>
+        <div class="payment-grid">
+          <div class="payment-method" onclick="selectPaymentMethod('efectivo',this)"><div class="pm-icon">💵</div><div><div class="pm-label">Efectivo</div></div></div>
+          <div class="payment-method" onclick="selectPaymentMethod('cheque',this)"><div class="pm-icon">📄</div><div><div class="pm-label">Cheque</div></div></div>
+          <div class="payment-method" onclick="selectPaymentMethod('visa',this)"><div class="pm-icon">💳</div><div><div class="pm-label">Tarjeta Visa</div></div></div>
+          <div class="payment-method" onclick="selectPaymentMethod('credomatic',this)"><div class="pm-icon">💳</div><div><div class="pm-label">Tarjeta Credomatic</div></div></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-end;margin-bottom:12px">
+          <div class="erp-field" style="flex:0 0 180px"><label>Monto recibido (Q)</label><input type="number" id="pay-amount-input" placeholder="0.00" step="0.01" oninput="recalcPayment()" style="font-size:18px;font-weight:700;font-family:'DM Mono',monospace;text-align:right"></div>
+        </div>
+        <div class="payment-summary">
+          <div class="pay-box total"><div class="pb-label">Total</div><div class="pb-val" id="pay-total-val">Q 0.00</div></div>
+          <div class="pay-box change"><div class="pb-label">Vuelto</div><div class="pb-val" id="pay-change-val">Q 0.00</div></div>
+          <div class="pay-box pending"><div class="pb-label">Pendiente</div><div class="pb-val" id="pay-pending-val">Q 0.00</div></div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:14px">
+          <button class="btn btn-outline">🗑 Limpiar</button>
+          <button class="btn btn-primary" onclick="confirmInvoice()">✅ Confirmar y emitir</button>
         </div>
       </div>
     </div>
 
     <!-- INVENTARIO COLABORADOR -->
     <div class="panel" id="emp-inv">
-      <div class="page-title">📦 Consultar inventario</div>
+      <div class="page-title">📦 Inventario</div>
       <div class="page-sub">Solo lectura</div>
       <div class="filter-bar">
-        <div class="search-compound" style="flex:2"><span class="s-icon">🔍</span><input placeholder="Nombre, código, sub-nombre…"></div>
-        <div class="inp-group">
-          <label>Categoría</label>
-          <select style="width:130px" onchange="onCategoryFilterChange(this,'emp-inv-dyn-filters')">
-            <option>Todas</option><option>Granos</option><option>Aceites</option>
-            <option>Velas</option><option>Higiene</option><option>Bebidas</option>
-          </select>
-        </div>
-        <div class="inp-group"><label>Estado</label><select style="width:110px"><option>Todos</option><option>🟢 OK</option><option>🟡 Bajo</option><option>🔴 Agotado</option></select></div>
+        <div class="search-compound" style="flex:2"><span class="s-icon">🔍</span><input placeholder="Nombre, código…"></div>
+        <div class="erp-field"><label>Categoría</label><select style="width:130px" onchange="onCategoryFilterChange(this,'emp-inv-dyn-filters')"><option>Todas</option><option>Granos</option><option>Aceites</option><option>Velas</option><option>Higiene</option><option>Bebidas</option></select></div>
       </div>
-      <!-- Filtros dinámicos colaborador -->
-      <div id="emp-inv-dyn-filters" class="dyn-filters-row">
-        <div style="font-size:12px;color:var(--muted);padding:6px 0">Selecciona una categoría para ver filtros adicionales.</div>
-      </div>
-
+      <div id="emp-inv-dyn-filters" class="dyn-filters-row"><div style="font-size:12px;color:var(--muted);padding:6px 0">Selecciona una categoría.</div></div>
       <div class="card" style="padding:0">
         <table class="tbl">
-          <thead><tr><th>Código</th><th>Producto</th><th>Presentación</th><th>Unidades</th><th>Estado</th></tr></thead>
-          <tbody id="emp-inv-table-body">
-            <!-- renderizado por JS -->
-          </tbody>
+          <thead><tr><th>Código / OEM</th><th>Producto</th><th>Categoría</th><th>Marca</th><th>Presentaciones</th><th>Unidades</th><th>Bodega</th><th>Precio</th><th>Estado</th><th></th></tr></thead>
+          <tbody id="emp-inv-table-body"><tr><td colspan="10" style="text-align:center;padding:20px;color:var(--muted)">Cargando…</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -633,67 +660,63 @@
     <div class="panel" id="emp-search">
       <div class="page-title">🔍 Búsqueda compuesta</div>
       <div class="page-sub">Busca por nombre, sub-nombre, atributos o combinaciones</div>
-      <div class="sale-form" style="margin-bottom:18px">
+      <div class="sale-form">
         <div style="display:grid;grid-template-columns:1fr 140px auto;gap:10px;align-items:end">
-          <div class="inp-group"><label>Búsqueda</label><input placeholder="Ej: san judas, aceite vegetal, vela roja 20cm…"></div>
-          <div class="inp-group">
-            <label>Categoría</label>
-            <select onchange="onCategoryFilterChange(this,'search-dyn-filters')">
-              <option>Todas</option><option>Granos</option><option>Aceites</option>
-              <option>Velas</option><option>Higiene</option><option>Bebidas</option>
-            </select>
-          </div>
+          <div class="fld"><label>Búsqueda</label><input placeholder="Ej: san judas roja 20cm, aceite vegetal 1L…"></div>
+          <div class="erp-field"><label>Categoría</label><select onchange="onCategoryFilterChange(this,'search-dyn-filters')"><option>Todas</option><option>Granos</option><option>Aceites</option><option>Velas</option><option>Higiene</option></select></div>
           <button class="btn btn-primary" style="margin-top:auto">🔍 Buscar</button>
         </div>
-        <!-- Filtros dinámicos de búsqueda -->
-        <div id="search-dyn-filters" class="dyn-filters-row" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)"></div>
-        <div style="font-size:12px;color:var(--muted);margin-top:8px">💡 Busca "san judas" para encontrar todos los tamaños y colores de esa vela.</div>
+        <div id="search-dyn-filters" class="dyn-filters-row" style="margin-top:10px"></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:8px">💡 Escribe "san judas" para ver todos los tamaños y colores disponibles.</div>
       </div>
-      <div class="card"><div class="card-title">Resultados</div><div style="color:var(--muted);font-size:13px;text-align:center;padding:20px">Ingresa un término para buscar.</div></div>
+      <div class="card"><div class="card-title">Resultados</div><div style="color:var(--muted);font-size:13px;text-align:center;padding:20px">Ingresa un término.</div></div>
     </div>
 
-    <!-- REGISTRAR PRODUCTO (colaborador — mismo wizard) -->
+    <!-- REGISTRAR (bodeguero/supervisor) -->
     <div class="panel" id="emp-register">
       <div class="page-title">➕ Registrar producto</div>
-      <div class="page-sub">Ingresa un producto o registra una entrega de bodega</div>
-      <div class="collab-banner">
-        <div class="cb-left">📦 Acceso de bodeguero / supervisor</div>
-        <div class="cb-right">El registro queda asociado a tu usuario.</div>
+      <div class="collab-banner"><div class="cb-left">📦 Bodeguero / Supervisor</div><div class="cb-right">El registro queda auditado con tu usuario.</div></div>
+      <div class="alert-banner alert-info">ℹ️ El wizard completo está disponible en <strong>Dueño → ➕ Registrar</strong>. Esta vista es un acceso rápido para bodega.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px">
+        <div class="card">
+          <div class="card-title">📦 Registro rápido de entrada</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="fld"><label>Buscar producto existente</label><input placeholder="Código o nombre…"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="fld"><label>Presentación recibida</label><select><option>Caja</option><option>Saco</option><option>Galón</option><option>Unidad</option></select></div>
+              <div class="fld"><label>Cantidad</label><input type="number" value="1"></div>
+            </div>
+            <div class="fld"><label>N° Factura proveedor</label><input placeholder="F-XXXX"></div>
+            <div class="fld"><label>Bodega destino</label><select><option>Principal</option><option>Norte</option><option>Sur</option></select></div>
+            <button class="btn btn-primary">📥 Registrar entrada</button>
+          </div>
+        </div>
       </div>
-      <!-- El wizard es idéntico al del dueño — se reutiliza el mismo HTML -->
-      <div class="alert-banner alert-info">ℹ️ El wizard de registro es el mismo que el del dueño. Ve a <strong>📊 Dueño → ➕ Registrar</strong> para ver el flujo completo funcional.</div>
     </div>
 
-    <!-- ACTUALIZAR PRECIOS (supervisor) -->
+    <!-- PRECIOS (supervisor) -->
     <div class="panel" id="emp-update-prices">
       <div class="page-title">🏷️ Actualizar precios</div>
-      <div class="page-sub">Solo supervisores</div>
-      <div class="collab-banner">
-        <div class="cb-left">🔑 Acceso de supervisor · Cambios quedan auditados</div>
-        <div class="cb-right">Usuario: María G. · 12/03/2026 09:00</div>
-      </div>
+      <div class="collab-banner"><div class="cb-left">🔑 Supervisor · Cambios auditados</div><div class="cb-right">María G. · 14/03/2026</div></div>
       <div class="card" style="padding:0">
         <table class="tbl">
-          <thead><tr><th>Código</th><th>Producto</th><th>💵 Público</th><th>📦 Mayorista</th><th>⭐ Especial</th><th></th></tr></thead>
+          <thead><tr><th>Código</th><th>Producto</th><th>Unidad</th><th>💵 Público</th><th>📦 Mayor</th><th>⭐ Especial</th><th></th></tr></thead>
           <tbody>
-            <tr><td><span class="prod-code">ACE-002</span></td><td>Aceite Ideal 1L</td><td><input class="price-input" value="Q 38.50"></td><td><input class="price-input" value="Q 34.00"></td><td><input class="price-input" value="Q 31.00"></td><td><button class="btn btn-primary btn-sm" onclick="savePrice(this)">💾</button></td></tr>
-            <tr><td><span class="prod-code">VEL-010</span></td><td>Vela San Judas 20cm</td><td><input class="price-input" value="Q 5.00"></td><td><input class="price-input" value="Q 4.20"></td><td><input class="price-input" value="Q 3.80"></td><td><button class="btn btn-primary btn-sm" onclick="savePrice(this)">💾</button></td></tr>
+            <tr><td><span class="prod-code">ACE-002</span></td><td>Aceite Ideal</td><td><span class="pres-tag">Botella</span></td><td><input class="price-input" value="38.50"></td><td><input class="price-input" value="34.00"></td><td><input class="price-input" value="31.00"></td><td><button class="btn btn-primary btn-sm" onclick="savePrice(this)">💾</button></td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
-  </div><!-- /main colaborador -->
+  </div>
 </div><!-- /app-employee -->
 
 
-<!-- ════════════════════════════════════════════
-     APP — CLIENTE
-════════════════════════════════════════════ -->
+<!-- ════════════ APP CLIENTE ════════════ -->
 <div class="app" id="app-customer">
   <div class="store-topbar">
     <div class="store-logo">🛒 La Tienda</div>
-    <input class="store-search" placeholder="🔍  Buscar productos…">
+    <input class="store-search" placeholder="🔍 Buscar productos…">
     <button class="store-cart" onclick="logout()">🛒 Carrito <div class="cart-count">3</div></button>
   </div>
   <div class="store-main">
@@ -709,24 +732,42 @@
       <div class="product-card"><div class="product-img">🕯️</div><div class="product-info"><div class="product-name">Vela San Judas 20cm</div><div class="product-cat">Velas · Beige · <span class="prod-code">VEL-010</span></div><div class="product-footer"><div class="product-price">Q 5.00</div><button class="btn-add">+ Agregar</button></div></div></div>
       <div class="product-card"><div class="product-img">🕯️</div><div class="product-info"><div class="product-name">Vela San Judas 15cm</div><div class="product-cat">Velas · Blanca · <span class="prod-code">VEL-011</span></div><div class="product-footer"><div class="product-price">Q 3.50</div><button class="btn-add">+ Agregar</button></div></div></div>
       <div class="product-card"><div class="product-img">🍚</div><div class="product-info"><div class="product-name">Arroz Brillante 1lb</div><div class="product-cat">Granos · <span class="prod-code">ARR-003</span></div><div class="product-footer"><div class="product-price">Q 7.50</div><button class="btn-add">+ Agregar</button></div></div></div>
-      <div class="product-card" style="border:2px solid var(--customer-mid)"><div class="product-img" style="background:var(--customer-light)">🏷️</div><div class="product-info"><div class="product-name">Harina Maseca 1kg</div><div class="product-cat">Harinas · <strong style="color:var(--customer)">Promo -15%</strong></div><div class="product-footer"><div class="product-price">Q 11.90</div><button class="btn-add">+ Agregar</button></div></div></div>
     </div>
   </div>
 </div>
 
 
-<!-- ════════════════════════════════════════════
-     MODALES
-════════════════════════════════════════════ -->
+<!-- ════════════ MODALES ════════════ -->
 
-<!-- Modal desglose de presentación -->
-<div class="modal-overlay" id="modal-pres-breakdown">
+<!-- Búsqueda de producto para factura -->
+<div class="modal-overlay" id="modal-prod-search">
   <div class="modal-box wide">
-    <button class="modal-close" onclick="closeModal('modal-pres-breakdown')">✕</button>
-    <div class="modal-title" id="modal-pres-title">📦 Presentación</div>
-    <div class="modal-sub">Cómo se compró, cómo se almacena y cómo se puede vender.</div>
-    <div id="modal-pres-body"></div>
-    <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('modal-pres-breakdown')">Cerrar</button></div>
+    <button class="modal-close" onclick="closeModal('modal-prod-search')">✕</button>
+    <div class="modal-title">🔍 Selección de productos</div>
+    <div class="modal-sub">Busca por nombre, código, sub-nombre o combinación. Haz clic en una fila para agregar a la factura.</div>
+    <div style="display:flex;gap:10px;margin-bottom:14px;align-items:flex-end">
+      <div class="erp-field" style="flex:1"><label>Búsqueda exacta / por descripción</label><input id="modal-prod-search-input" placeholder="Ej: san judas, ACE-002, vela roja 20cm…" oninput="renderProdSearchTable(this.value)"></div>
+      <button class="btn btn-owner btn-sm" onclick="renderProdSearchTable(document.getElementById('modal-prod-search-input').value)">Buscar</button>
+    </div>
+    <div class="prod-select-table" style="max-height:340px;overflow-y:auto">
+      <table class="tbl">
+        <thead><tr><th>Código</th><th>Descripción</th><th>Unidad de medida</th><th>Precio público</th><th>Existencia</th></tr></thead>
+        <tbody id="prod-search-tbody"><!-- generado por JS --></tbody>
+      </table>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-top:10px">💡 Cada fila representa una combinación de producto + presentación. Haz clic para agregar a la factura.</div>
+    <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('modal-prod-search')">Cancelar</button></div>
+  </div>
+</div>
+
+<!-- Detalle de producto (ERP) -->
+<div class="modal-overlay" id="modal-product-detail">
+  <div class="modal-box wide">
+    <button class="modal-close" onclick="closeModal('modal-product-detail')">✕</button>
+    <div class="modal-title" id="modal-prod-title">🔍 Consultando</div>
+    <div class="modal-sub">Información completa del producto</div>
+    <div id="modal-prod-body"><!-- generado por JS --></div>
+    <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('modal-product-detail')">Cerrar</button></div>
   </div>
 </div>
 
@@ -735,17 +776,14 @@
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('modal-email')">✕</button>
     <div class="modal-title">📧 Confirmación de pago</div>
-    <div class="modal-sub">Se enviará al correo del proveedor.</div>
-    <div class="inp-group" style="margin-bottom:10px"><label>Para</label><input value="rpaz@guatelinda.gt"></div>
-    <div class="inp-group" style="margin-bottom:10px"><label>Asunto</label><input value="Confirmación de pago — Pedido #P-088"></div>
-    <div class="email-preview">
-      <div class="ep-label">Vista previa</div>
-      <div class="ep-body">Estimado Roberto Paz,
+    <div class="modal-sub">Se enviará al proveedor registrado.</div>
+    <div class="erp-field" style="margin-bottom:10px"><label>Para</label><input value="rpaz@guatelinda.gt"></div>
+    <div class="erp-field" style="margin-bottom:10px"><label>Asunto</label><input value="Confirmación de pago — Pedido #P-088"></div>
+    <div class="email-preview"><div class="ep-label">Vista previa</div><div class="ep-body">Estimado Roberto Paz,
 
-Confirmamos el pago del pedido #P-088 por Q 5,800.00 con fecha 12/03/2026.
+Confirmamos el pago del pedido #P-088 por Q 5,800.00 con fecha 14/03/2026.
 
-Atentamente, Carlos Cumatz — StoreOS</div>
-    </div>
+Atentamente, Carlos Cumatz — StoreOS</div></div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeModal('modal-email')">Cancelar</button>
       <button class="btn btn-owner" id="btn-send-email" onclick="sendEmailConfirm()">📧 Enviar</button>
@@ -758,33 +796,14 @@ Atentamente, Carlos Cumatz — StoreOS</div>
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('modal-payment')">✕</button>
     <div class="modal-title">💳 Estado de pagos — Comercial López</div>
-    <div class="modal-sub">Historial de abonos y saldo pendiente.</div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
       <div class="stat-card"><div class="s-icon">💰</div><div class="s-val" style="font-size:18px;color:var(--danger)">-Q 800</div><div class="s-label">Pendiente</div></div>
       <div class="stat-card"><div class="s-icon">🧾</div><div class="s-val" style="font-size:18px">Q 3,200</div><div class="s-label">Comprado (mes)</div></div>
       <div class="stat-card"><div class="s-icon">⭐</div><div class="s-val" style="font-size:18px">2,340</div><div class="s-label">Puntos</div></div>
     </div>
     <table class="tbl"><thead><tr><th>Fecha</th><th>Concepto</th><th>Monto</th><th>Estado</th></tr></thead>
-    <tbody><tr><td>10/03</td><td>Compra #1040</td><td class="mono">Q 2,400</td><td><span class="chip chip-ok">✅ Pagado</span></td></tr><tr><td>11/03</td><td>Compra #1041</td><td class="mono">Q 800</td><td><span class="chip chip-danger">💳 Pendiente</span></td></tr></tbody></table>
+    <tbody><tr><td>10/03</td><td>Compra #7808</td><td class="mono">Q 800</td><td><span class="chip chip-danger">💳 Pendiente</span></td></tr></tbody></table>
     <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('modal-payment')">Cerrar</button><button class="btn btn-owner">+ Abono</button></div>
-  </div>
-</div>
-
-<!-- Nuevo pedido -->
-<div class="modal-overlay" id="modal-new-order">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('modal-new-order')">✕</button>
-    <div class="modal-title">📋 Nuevo pedido</div>
-    <div class="modal-sub">Orden de compra a proveedor.</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-      <div class="inp-group"><label>Proveedor</label><select><option>Guatelinda S.A.</option><option>Dist. García</option></select></div>
-      <div class="inp-group"><label>Fecha estimada</label><input type="date"></div>
-      <div class="inp-group"><label>Producto</label><input placeholder="Nombre"></div>
-      <div class="inp-group"><label>Presentación</label><select><option>Caja</option><option>Saco</option><option>Galón</option></select></div>
-      <div class="inp-group"><label>Cantidad</label><input type="number" placeholder="0"></div>
-      <div class="inp-group"><label>Total (Q)</label><input type="number" placeholder="0.00"></div>
-    </div>
-    <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('modal-new-order')">Cancelar</button><button class="btn btn-owner">📋 Crear</button></div>
   </div>
 </div>
 
