@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StoreOS — Prototipo</title>
+  <title>StoreOS — Prototipo v1.1</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -15,7 +15,7 @@
 ════════════════════════════════════════════ -->
 <div id="screen-login">
   <div class="login-card">
-    <div class="login-logo">Store<span>OS</span></div>
+    <div class="login-logo">Store<span>OS</span> <span style="font-size:13px;font-weight:400;color:var(--muted)">v1.1</span></div>
     <div class="login-sub">Sistema de gestión de tienda · Prototipo</div>
 
     <div class="role-grid">
@@ -27,6 +27,16 @@
       </button>
       <button class="role-btn" onclick="selectRole('customer',this)" id="rb-customer">
         <span class="icon">🛒</span><span class="label">Cliente</span>
+      </button>
+    </div>
+
+    <!-- Sub-tipo cliente (visible al seleccionar Cliente) -->
+    <div class="customer-type-row" id="customer-type-row" style="display:none">
+      <button class="ctype-btn active" id="ctype-retail" onclick="selectCustomerType('retail',this)">
+        <span class="ct-icon">🛍️</span>Comprador detalle
+      </button>
+      <button class="ctype-btn" id="ctype-wholesale" onclick="selectCustomerType('wholesale',this)">
+        <span class="ct-icon">🏭</span>Comprador mayorista
       </button>
     </div>
 
@@ -606,21 +616,21 @@
               <tbody>
                 <tr>
                   <td><strong>Guatelinda S.A.</strong></td><td>Roberto Paz</td>
-                  <td style="font-family:'DM Mono',monospace;font-size:12px">rpaz@guatelinda.gt</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:12px"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="562426372c1631233722333a3f383237783122">[email&#160;protected]</a></td>
                   <td>Azúcar, Maíz</td>
                   <td><span class="chip chip-blue">NIT 12345-6</span></td>
                   <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="openModal('modal-email')">📧 Enviar correo</button></td>
                 </tr>
                 <tr>
                   <td><strong>Distribuidora García</strong></td><td>Ana García</td>
-                  <td style="font-family:'DM Mono',monospace;font-size:12px">agarcia@dist.gt</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:12px"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a8c9cfc9dacbc1c9e8ccc1dbdc86cfdc">[email&#160;protected]</a></td>
                   <td>Aceites, Grasas</td>
                   <td><span class="chip chip-blue">NIT 78901-2</span></td>
                   <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="openModal('modal-email')">📧 Enviar correo</button></td>
                 </tr>
                 <tr>
                   <td><strong>Brillante S.A.</strong></td><td>José Molina</td>
-                  <td style="font-family:'DM Mono',monospace;font-size:12px">jmolina@brillante.gt</td>
+                  <td style="font-family:'DM Mono',monospace;font-size:12px"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4c2621232025222d0c2e3e2520202d223829622b38">[email&#160;protected]</a></td>
                   <td>Arroz, Granos</td>
                   <td><span class="chip chip-blue">NIT 34567-8</span></td>
                   <td><button class="btn btn-outline" style="padding:4px 10px;font-size:12px" onclick="openModal('modal-email')">📧 Enviar correo</button></td>
@@ -790,34 +800,338 @@
 
 
 <!-- ════════════════════════════════════════════
-     APP — CLIENTE
+     APP — CLIENTE (detalle y mayorista)
 ════════════════════════════════════════════ -->
 <div class="app" id="app-customer" style="background:var(--bg)">
+
   <div class="store-topbar">
     <div class="store-logo">🛒 La Tienda</div>
-    <input class="store-search" placeholder="🔍  Buscar productos…">
-    <button class="store-cart" onclick="logout()">🛒 Carrito <div class="cart-count">3</div></button>
+    <nav class="store-nav" id="store-nav"></nav>
+    <input class="store-search" placeholder="🔍  Buscar productos…" style="margin-left:auto">
+    <span class="store-type-badge" id="store-type-badge">🛍️ Detalle</span>
+    <button class="store-cart" onclick="logout()">🛒 Carrito <div class="cart-count" id="cart-count-label">0</div></button>
   </div>
-  <div class="store-main">
-    <div class="category-pills">
-      <div class="cat-pill active">🌾 Granos</div>
-      <div class="cat-pill">🫙 Aceites</div>
-      <div class="cat-pill">🧼 Higiene</div>
-      <div class="cat-pill">☕ Bebidas</div>
-      <div class="cat-pill">🧂 Condimentos</div>
-      <div class="cat-pill">🏷️ Promociones</div>
+
+  <!-- ══ VISTA DETALLE ══════════════════════════════ -->
+  <div class="store-panel active" id="panel-retail">
+    <div class="store-main">
+
+      <!-- Promociones destacadas -->
+      <div style="margin-bottom:24px">
+        <div style="font-size:17px;font-weight:700;letter-spacing:-0.3px;margin-bottom:14px">🔥 Promociones de hoy</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+          <div class="product-card recommended" style="display:flex;align-items:center;gap:14px;padding:16px">
+            <div style="font-size:38px;flex-shrink:0">🫙</div>
+            <div>
+              <div class="promo-badge">-10% hoy</div>
+              <div class="product-name">Aceite Ideal 1L</div>
+              <div class="product-desc">Aceite vegetal para frituras y ensaladas. Sin colesterol. Botella de 1 litro.</div>
+              <div class="product-footer" style="margin-top:6px">
+                <div><span class="product-original-price">Q 42.50</span><span class="product-price" style="font-size:15px">Q 38.50</span></div>
+                <button class="btn-add">+ Agregar</button>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" style="display:flex;align-items:center;gap:14px;padding:16px;border:2px solid var(--customer-mid)">
+            <div style="font-size:38px;flex-shrink:0">🏷️</div>
+            <div>
+              <div class="promo-badge">-15% promo</div>
+              <div class="product-name">Harina Maseca 1kg</div>
+              <div class="product-desc">Harina de maíz nixtamalizado precocida. Para tortillas, tamales y pupusas.</div>
+              <div class="product-footer" style="margin-top:6px">
+                <div><span class="product-original-price">Q 14.00</span><span class="product-price" style="font-size:15px">Q 11.90</span></div>
+                <button class="btn-add">+ Agregar</button>
+              </div>
+            </div>
+          </div>
+          <div class="product-card" style="display:flex;align-items:center;gap:14px;padding:16px">
+            <div style="font-size:38px;flex-shrink:0">☕</div>
+            <div>
+              <div class="promo-badge" style="background:var(--employee)">Nuevo</div>
+              <div class="product-name">Café Montaña 250g</div>
+              <div class="product-desc">Café guatemalteco molido. Origen Huehuetenango. Tueste medio. 250 gramos.</div>
+              <div class="product-footer" style="margin-top:6px">
+                <div class="product-price" style="font-size:15px">Q 28.00</div>
+                <button class="btn-add">+ Agregar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Catálogo completo con descripciones -->
+      <div style="font-size:17px;font-weight:700;letter-spacing:-0.3px;margin-bottom:14px">🛒 Catálogo de productos</div>
+      <div class="category-pills">
+        <div class="cat-pill active">Todos</div>
+        <div class="cat-pill">🌾 Granos</div>
+        <div class="cat-pill">🫙 Aceites</div>
+        <div class="cat-pill">🧼 Higiene</div>
+        <div class="cat-pill">☕ Bebidas</div>
+        <div class="cat-pill">🧂 Condimentos</div>
+      </div>
+
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-img">🌾</div>
+          <div class="product-info">
+            <div class="product-name">Azúcar 50lb</div>
+            <div class="product-cat">Granos · Guatelinda</div>
+            <div class="product-desc">Azúcar blanca refinada. Saco de 50 libras. Ideal para uso en hogar o negocio.</div>
+            <div class="product-footer"><div class="product-price">Q 120.00</div><button class="btn-add" disabled style="background:var(--muted)">❌ Agotado</button></div>
+          </div>
+        </div>
+        <div class="product-card recommended">
+          <div class="product-img">🫙</div>
+          <div class="product-info">
+            <div class="promo-badge">-10% hoy</div>
+            <div class="product-name">Aceite Ideal 1L</div>
+            <div class="product-cat">Aceites · Ideal</div>
+            <div class="product-desc">Aceite vegetal para frituras y ensaladas. Sin colesterol. Botella de 1 litro.</div>
+            <div class="product-footer">
+              <div><span class="product-original-price">Q 42.50</span><span class="product-price">Q 38.50</span></div>
+              <button class="btn-add">+ Agregar</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img">🍚</div>
+          <div class="product-info">
+            <div class="product-name">Arroz Brillante 1lb</div>
+            <div class="product-cat">Granos · Brillante</div>
+            <div class="product-desc">Arroz blanco grano largo. Cocción perfecta garantizada. Presentación de 1 libra.</div>
+            <div class="product-footer"><div class="product-price">Q 7.50</div><button class="btn-add">+ Agregar</button></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img">🫘</div>
+          <div class="product-info">
+            <div class="product-name">Frijol negro 1lb</div>
+            <div class="product-cat">Granos · Sin marca</div>
+            <div class="product-desc">Frijol negro selecto de calidad. Grano limpio y uniforme. Bolsa de 1 libra.</div>
+            <div class="product-footer"><div class="product-price">Q 9.00</div><button class="btn-add">+ Agregar</button></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img">🧼</div>
+          <div class="product-info">
+            <div class="product-name">Jabón Dove 90g</div>
+            <div class="product-cat">Higiene · Dove</div>
+            <div class="product-desc">Jabón de tocador con crema humectante. Suave para todo tipo de piel. 90 gramos.</div>
+            <div class="product-footer"><div class="product-price">Q 18.00</div><button class="btn-add">+ Agregar</button></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img">☕</div>
+          <div class="product-info">
+            <div class="product-name">Café Montaña 250g</div>
+            <div class="product-cat">Bebidas · Montaña</div>
+            <div class="product-desc">Café guatemalteco molido. Origen Huehuetenango. Tueste medio. 250 gramos.</div>
+            <div class="product-footer"><div class="product-price">Q 28.00</div><button class="btn-add">+ Agregar</button></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-img">🧂</div>
+          <div class="product-info">
+            <div class="product-name">Sal Marina 500g</div>
+            <div class="product-cat">Condimentos</div>
+            <div class="product-desc">Sal marina natural sin aditivos. Yodada para beneficio nutricional. 500 gramos.</div>
+            <div class="product-footer"><div class="product-price">Q 4.50</div><button class="btn-add">+ Agregar</button></div>
+          </div>
+        </div>
+        <div class="product-card" style="border:2px solid var(--customer-mid)">
+          <div class="product-img" style="background:var(--customer-light)">🏷️</div>
+          <div class="product-info">
+            <div class="promo-badge">-15% promo</div>
+            <div class="product-name">Harina Maseca 1kg</div>
+            <div class="product-cat">Harinas · Maseca</div>
+            <div class="product-desc">Harina de maíz nixtamalizado precocida. Para tortillas, tamales y pupusas. 1 kg.</div>
+            <div class="product-footer">
+              <div><span class="product-original-price">Q 14.00</span><span class="product-price">Q 11.90</span></div>
+              <button class="btn-add">+ Agregar</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="product-grid">
-      <div class="product-card"><div class="product-img">🌾</div><div class="product-info"><div class="product-name">Azúcar 50lb</div><div class="product-cat">Granos · Guatelinda</div><div class="product-footer"><div class="product-price">Q 120.00</div><button class="btn-add" disabled>❌ Agotado</button></div></div></div>
-      <div class="product-card"><div class="product-img">🫙</div><div class="product-info"><div class="product-name">Aceite Ideal 1L</div><div class="product-cat">Aceites · Ideal</div><div class="product-footer"><div class="product-price">Q 38.50</div><button class="btn-add">+ Agregar</button></div></div></div>
-      <div class="product-card"><div class="product-img">🍚</div><div class="product-info"><div class="product-name">Arroz Brillante 1lb</div><div class="product-cat">Granos · Brillante</div><div class="product-footer"><div class="product-price">Q 7.50</div><button class="btn-add">+ Agregar</button></div></div></div>
-      <div class="product-card"><div class="product-img">🫘</div><div class="product-info"><div class="product-name">Frijol negro 1lb</div><div class="product-cat">Granos · Sin marca</div><div class="product-footer"><div class="product-price">Q 9.00</div><button class="btn-add">+ Agregar</button></div></div></div>
-      <div class="product-card"><div class="product-img">🧼</div><div class="product-info"><div class="product-name">Jabón Dove 90g</div><div class="product-cat">Higiene · Dove</div><div class="product-footer"><div class="product-price">Q 18.00</div><button class="btn-add">+ Agregar</button></div></div></div>
-      <div class="product-card"><div class="product-img">☕</div><div class="product-info"><div class="product-name">Café Montaña 250g</div><div class="product-cat">Bebidas · Montaña</div><div class="product-footer"><div class="product-price">Q 28.00</div><button class="btn-add">+ Agregar</button></div></div></div>
-      <div class="product-card"><div class="product-img">🧂</div><div class="product-info"><div class="product-name">Sal Marina 500g</div><div class="product-cat">Condimentos</div><div class="product-footer"><div class="product-price">Q 4.50</div><button class="btn-add">+ Agregar</button></div></div></div>
-      <div class="product-card" style="border:2px solid var(--customer-mid)"><div class="product-img" style="background:var(--customer-light)">🏷️</div><div class="product-info"><div class="product-name">Harina Maseca 1kg</div><div class="product-cat">Harinas · <strong style="color:var(--customer)">Promo -15%</strong></div><div class="product-footer"><div class="product-price">Q 11.90</div><button class="btn-add">+ Agregar</button></div></div></div>
+  </div><!-- /panel-retail -->
+
+
+  <!-- ══ VISTA MAYORISTA ════════════════════════════ -->
+  <div class="store-panel" id="panel-wholesale">
+    <div class="store-main" style="max-width:1200px">
+
+      <!-- Hero -->
+      <div class="wholesale-hero">
+        <div>
+          <h2>Portal de compras al mayor</h2>
+          <p>Consulta el inventario completo, elige cantidades y registra tu pedido en línea sin necesidad de desplazarte.</p>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:28px;font-weight:900;font-family:'DM Mono',monospace">3 niveles</div>
+          <div style="font-size:12px;opacity:0.75">de descuento por volumen</div>
+        </div>
+      </div>
+
+      <!-- Descuentos por volumen -->
+      <div style="font-size:14px;font-weight:700;margin-bottom:12px">📦 Descuentos por volumen de compra</div>
+      <div class="discount-cards">
+        <div class="discount-card">
+          <div class="dc-qty">Desde Q 500</div>
+          <div class="dc-pct">5%</div>
+          <div class="dc-desc">Pedido básico · precio mayorista estándar</div>
+        </div>
+        <div class="discount-card">
+          <div class="dc-qty">Desde Q 2,000</div>
+          <div class="dc-pct">10%</div>
+          <div class="dc-desc">Pedido intermedio · descuento aplicado al total</div>
+        </div>
+        <div class="discount-card">
+          <div class="dc-qty">Desde Q 5,000</div>
+          <div class="dc-pct">15%</div>
+          <div class="dc-desc">Pedido grande · precio especial negociado</div>
+        </div>
+      </div>
+
+      <!-- Inventario + carrito -->
+      <div class="wholesale-layout">
+
+        <div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px">📋 Inventario disponible</div>
+          <div class="wholesale-filters">
+            <input placeholder="🔍  Buscar producto…" style="flex:1;min-width:180px">
+            <select>
+              <option>Todas las categorías</option>
+              <option>Granos</option><option>Aceites</option>
+              <option>Higiene</option><option>Bebidas</option><option>Condimentos</option>
+            </select>
+            <select>
+              <option>Todos los estados</option>
+              <option>🟢 Disponible</option><option>🟡 Stock bajo</option>
+            </select>
+          </div>
+
+          <div class="card" style="padding:0">
+            <table class="tbl">
+              <thead><tr>
+                <th>Producto</th><th>Categoría</th>
+                <th>P. público</th><th>P. mayorista</th>
+                <th>Stock</th><th>Cantidad</th><th></th>
+              </tr></thead>
+              <tbody>
+                <tr>
+                  <td><strong>Azúcar 50lb</strong><div style="font-size:11px;color:var(--muted)">Guatelinda · Saco</div></td>
+                  <td>Granos</td>
+                  <td style="font-family:'DM Mono',monospace">Q 120.00</td>
+                  <td style="font-family:'DM Mono',monospace;color:var(--ok);font-weight:700">Q 108.00</td>
+                  <td><span class="stock-bar"><span class="stock-bar-fill" style="width:0%;background:var(--danger)"></span></span> <span style="font-size:12px;color:var(--danger);font-weight:600">0 · Agotado</span></td>
+                  <td><input class="qty-input-wholesale" type="number" value="0" min="0" disabled></td>
+                  <td><button class="btn-add-cart" disabled style="background:var(--muted)">❌</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Aceite Ideal 1L</strong><div style="font-size:11px;color:var(--muted)">Ideal · Botella</div></td>
+                  <td>Aceites</td>
+                  <td style="font-family:'DM Mono',monospace">Q 38.50</td>
+                  <td style="font-family:'DM Mono',monospace;color:var(--ok);font-weight:700">Q 34.00</td>
+                  <td><span class="stock-bar"><span class="stock-bar-fill" style="width:25%;background:var(--warn)"></span></span> <span style="font-size:12px;color:var(--warn);font-weight:600">5 · Bajo</span></td>
+                  <td><input class="qty-input-wholesale" type="number" value="0" min="0" max="5"></td>
+                  <td><button class="btn-add-cart">+ Agregar</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Arroz Brillante 1lb</strong><div style="font-size:11px;color:var(--muted)">Brillante · Libra</div></td>
+                  <td>Granos</td>
+                  <td style="font-family:'DM Mono',monospace">Q 7.50</td>
+                  <td style="font-family:'DM Mono',monospace;color:var(--ok);font-weight:700">Q 7.00</td>
+                  <td><span class="stock-bar"><span class="stock-bar-fill" style="width:40%;background:var(--warn)"></span></span> <span style="font-size:12px;color:var(--warn);font-weight:600">8 · Bajo</span></td>
+                  <td><input class="qty-input-wholesale" type="number" value="0" min="0" max="8"></td>
+                  <td><button class="btn-add-cart">+ Agregar</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Jabón Dove 90g</strong><div style="font-size:11px;color:var(--muted)">Dove · Caja 12 uds.</div></td>
+                  <td>Higiene</td>
+                  <td style="font-family:'DM Mono',monospace">Q 18.00</td>
+                  <td style="font-family:'DM Mono',monospace;color:var(--ok);font-weight:700">Q 15.50</td>
+                  <td><span class="stock-bar"><span class="stock-bar-fill" style="width:85%;background:var(--ok)"></span></span> <span style="font-size:12px;color:var(--ok);font-weight:600">34 · OK</span></td>
+                  <td><input class="qty-input-wholesale" type="number" value="0" min="0" max="34"></td>
+                  <td><button class="btn-add-cart">+ Agregar</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Sal Marina 500g</strong><div style="font-size:11px;color:var(--muted)">Sin marca · Bolsa</div></td>
+                  <td>Condimentos</td>
+                  <td style="font-family:'DM Mono',monospace">Q 4.50</td>
+                  <td style="font-family:'DM Mono',monospace;color:var(--ok);font-weight:700">Q 4.00</td>
+                  <td><span class="stock-bar"><span class="stock-bar-fill" style="width:100%;background:var(--ok)"></span></span> <span style="font-size:12px;color:var(--ok);font-weight:600">52 · OK</span></td>
+                  <td><input class="qty-input-wholesale" type="number" value="0" min="0" max="52"></td>
+                  <td><button class="btn-add-cart">+ Agregar</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Frijol negro 1lb</strong><div style="font-size:11px;color:var(--muted)">Sin marca · Libra</div></td>
+                  <td>Granos</td>
+                  <td style="font-family:'DM Mono',monospace">Q 9.00</td>
+                  <td style="font-family:'DM Mono',monospace;color:var(--ok);font-weight:700">Q 8.20</td>
+                  <td><span class="stock-bar"><span class="stock-bar-fill" style="width:70%;background:var(--ok)"></span></span> <span style="font-size:12px;color:var(--ok);font-weight:600">28 · OK</span></td>
+                  <td><input class="qty-input-wholesale" type="number" value="0" min="0" max="28"></td>
+                  <td><button class="btn-add-cart">+ Agregar</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Café Montaña 250g</strong><div style="font-size:11px;color:var(--muted)">Montaña · Unidad</div></td>
+                  <td>Bebidas</td>
+                  <td style="font-family:'DM Mono',monospace">Q 28.00</td>
+                  <td style="font-family:'DM Mono',monospace;color:var(--ok);font-weight:700">Q 25.00</td>
+                  <td><span class="stock-bar"><span class="stock-bar-fill" style="width:95%;background:var(--ok)"></span></span> <span style="font-size:12px;color:var(--ok);font-weight:600">19 · OK</span></td>
+                  <td><input class="qty-input-wholesale" type="number" value="0" min="0" max="19"></td>
+                  <td><button class="btn-add-cart">+ Agregar</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Carrito mayorista -->
+        <div class="cart-aside">
+          <div class="cart-aside-title">🛒 Pedido en curso</div>
+          <div class="cart-row">
+            <div><div class="cr-name">Jabón Dove 90g</div><div class="cr-qty">×20 unidades</div></div>
+            <div class="cr-val">Q 310.00</div>
+          </div>
+          <div class="cart-row">
+            <div><div class="cr-name">Sal Marina 500g</div><div class="cr-qty">×30 bolsas</div></div>
+            <div class="cr-val">Q 120.00</div>
+          </div>
+          <div class="cart-row">
+            <div><div class="cr-name">Frijol negro 1lb</div><div class="cr-qty">×15 libras</div></div>
+            <div class="cr-val">Q 123.00</div>
+          </div>
+          <div class="cart-total-row">
+            <div>Total pedido</div>
+            <div class="ct-val">Q 553.00</div>
+          </div>
+          <div style="margin-top:10px;padding:10px;background:var(--employee-light);border-radius:8px;font-size:12px;color:var(--employee)">
+            ✅ Descuento 5% aplicado (Q 500+)
+          </div>
+          <button class="btn btn-owner" style="width:100%;margin-top:12px;justify-content:center">📋 Registrar pedido</button>
+          <button class="btn btn-outline" style="width:100%;margin-top:8px;justify-content:center;font-size:12px">🗑 Limpiar pedido</button>
+        </div>
+      </div>
+
+      <!-- Formulario de pedido -->
+      <div class="order-form-card">
+        <div style="font-size:14px;font-weight:700;margin-bottom:16px">📋 Datos del pedido en línea</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="order-inp-group"><label>Nombre del negocio</label><input placeholder="Ej: Comercial López"></div>
+          <div class="order-inp-group"><label>Contacto / teléfono</label><input placeholder="Ej: 5555-1234"></div>
+          <div class="order-inp-group"><label>Dirección de entrega</label><input placeholder="Zona, calle, número…"></div>
+          <div class="order-inp-group"><label>Fecha de entrega preferida</label><input type="date"></div>
+          <div class="order-inp-group" style="grid-column:1/-1"><label>Notas adicionales</label><textarea placeholder="Instrucciones especiales, productos alternativos aceptados…"></textarea></div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:16px">
+          <button class="btn btn-outline">← Volver al inventario</button>
+          <button class="btn btn-owner">✅ Confirmar y enviar pedido</button>
+        </div>
+      </div>
+
     </div>
-  </div>
+  </div><!-- /panel-wholesale -->
+
 </div><!-- /app-customer -->
 
 
@@ -848,7 +1162,7 @@ Por medio del presente correo le confirmamos el pago correspondiente al pedido #
 Queda a disposición para cualquier consulta sobre la factura o el proceso.
 
 Atentamente,
-Carlos — StoreOS</div>
+Carlos Cumatz — StoreOS</div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeModal('modal-email')">Cancelar</button>
@@ -946,7 +1260,6 @@ Carlos — StoreOS</div>
     </div>
   </div>
 </div>
-
 
 <script src="app.js"></script>
 </body>

@@ -528,3 +528,197 @@ body {
 }
 .btn-add:hover    { opacity: 0.85; }
 .btn-add:disabled { background: var(--muted); cursor: not-allowed; }
+
+/* ════════════════════════════════════════════
+   v1.1 — Estilos de cliente detalle/mayorista
+════════════════════════════════════════════ */
+
+/* ── Sub-tipo de cliente en login ─────────── */
+.customer-type-row {
+  display: flex; gap: 8px; margin-bottom: 20px;
+}
+.ctype-btn {
+  flex: 1; padding: 9px 10px; border-radius: 8px;
+  border: 2px solid var(--border); background: var(--bg);
+  font-family: inherit; font-size: 12px; font-weight: 600;
+  color: var(--muted); cursor: pointer;
+  transition: all 0.15s; text-align: center;
+}
+.ctype-btn .ct-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+.ctype-btn:hover    { border-color: var(--customer-mid); }
+.ctype-btn.active   { border-color: var(--customer-mid); background: var(--customer-light); color: var(--customer); }
+
+/* ── Topbar tienda — nav y badge de tipo ──── */
+.store-nav { display: flex; gap: 2px; margin-left: 12px; }
+.store-nav-item {
+  padding: 6px 12px; border-radius: 6px; cursor: pointer;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.75);
+  border: none; background: none; font-family: inherit;
+  transition: all 0.15s; white-space: nowrap;
+}
+.store-nav-item:hover  { background: rgba(255,255,255,0.15); color: white; }
+.store-nav-item.active { background: rgba(255,255,255,0.22); color: white; }
+.store-type-badge {
+  font-size: 11px; font-weight: 700; padding: 3px 10px;
+  border-radius: 20px; background: rgba(255,255,255,0.22); color: white;
+}
+
+/* ── Paneles de la tienda ─────────────────── */
+.store-panel        { display: none; }
+.store-panel.active { display: block; }
+
+/* ── Cards de detalle con descripción ─────── */
+.product-desc {
+  font-size: 11px; color: var(--muted);
+  margin-bottom: 8px; line-height: 1.4;
+}
+.promo-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 12px;
+  font-size: 10px; font-weight: 700;
+  background: var(--customer-mid); color: white; margin-bottom: 6px;
+}
+.product-original-price {
+  font-size: 11px; color: var(--muted);
+  text-decoration: line-through; margin-right: 4px;
+  font-family: 'DM Mono', monospace;
+}
+.product-card.recommended {
+  border: 2px solid var(--customer-mid);
+  position: relative;
+}
+.product-card.recommended::before {
+  content: '⭐ Recomendado';
+  position: absolute; top: 8px; right: 8px;
+  background: var(--customer-mid); color: white;
+  font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 10px;
+}
+
+/* ── Vista mayorista ──────────────────────── */
+.wholesale-hero {
+  background: var(--customer); color: white;
+  border-radius: var(--radius); padding: 22px 26px;
+  margin-bottom: 22px; display: flex;
+  justify-content: space-between; align-items: center; gap: 16px;
+}
+.wholesale-hero h2 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.wholesale-hero p  { font-size: 13px; opacity: 0.8; }
+
+.discount-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 14px; margin-bottom: 22px;
+}
+.discount-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.discount-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--customer-mid);
+}
+.discount-card .dc-qty  { font-size: 13px; font-weight: 600; color: var(--muted); }
+.discount-card .dc-pct  {
+  font-size: 30px; font-weight: 900; color: var(--customer-mid);
+  margin: 6px 0 2px; font-family: 'DM Mono', monospace;
+}
+.discount-card .dc-desc { font-size: 11px; color: var(--muted); }
+
+/* Filtros de la tabla de inventario mayorista */
+.wholesale-filters {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  align-items: flex-end; margin-bottom: 14px;
+}
+.wholesale-filters input,
+.wholesale-filters select {
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 12px; font-family: inherit; font-size: 13px;
+  background: var(--surface); outline: none;
+}
+
+/* Barra de nivel de stock */
+.stock-bar {
+  width: 48px; height: 5px; background: var(--border);
+  border-radius: 3px; display: inline-block;
+  vertical-align: middle; margin-right: 5px;
+}
+.stock-bar-fill { height: 100%; border-radius: 3px; display: block; }
+
+/* Input de cantidad en tabla mayorista */
+.qty-input-wholesale {
+  width: 60px; border: 1px solid var(--border); border-radius: 6px;
+  padding: 5px 8px; text-align: center;
+  font-family: 'DM Mono', monospace; font-size: 13px;
+  background: var(--bg); outline: none;
+}
+.qty-input-wholesale:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Botón de agregar al carrito mayorista */
+.btn-add-cart {
+  padding: 5px 12px; border-radius: 6px; border: none;
+  background: var(--customer-mid); color: white;
+  font-family: inherit; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: opacity 0.15s;
+}
+.btn-add-cart:hover    { opacity: 0.85; }
+.btn-add-cart:disabled { background: var(--muted); cursor: not-allowed; }
+
+/* Layout inventario + carrito lateral */
+.wholesale-layout {
+  display: grid; grid-template-columns: 1fr 290px; gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Carrito lateral mayorista */
+.cart-aside {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px;
+  position: sticky; top: 72px; align-self: start;
+}
+.cart-aside-title {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.4px; color: var(--muted); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 7px;
+}
+.cart-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 8px 0; border-bottom: 1px solid var(--border); gap: 8px;
+}
+.cart-row:last-of-type { border-bottom: none; }
+.cart-row .cr-name { font-size: 12px; font-weight: 600; flex: 1; }
+.cart-row .cr-qty  { font-size: 11px; color: var(--muted); }
+.cart-row .cr-val  {
+  font-size: 13px; font-weight: 700;
+  font-family: 'DM Mono', monospace; white-space: nowrap;
+}
+.cart-total-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 0 0; margin-top: 4px;
+  border-top: 2px solid var(--border);
+  font-weight: 700; font-size: 15px;
+}
+.cart-total-row .ct-val {
+  font-family: 'DM Mono', monospace;
+  color: var(--customer); font-size: 18px;
+}
+
+/* Formulario de pedido mayorista */
+.order-form-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 22px; margin-bottom: 16px;
+}
+.order-inp-group { display: flex; flex-direction: column; gap: 5px; }
+.order-inp-group label {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.3px; color: var(--muted);
+}
+.order-inp-group input,
+.order-inp-group select,
+.order-inp-group textarea {
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 9px 12px; font-family: inherit; font-size: 14px;
+  background: var(--bg); outline: none; transition: border 0.15s;
+}
+.order-inp-group input:focus,
+.order-inp-group select:focus  { border-color: var(--customer-mid); }
+.order-inp-group textarea { resize: vertical; min-height: 70px; }
