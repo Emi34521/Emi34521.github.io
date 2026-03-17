@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StoreOS — Cliente v4.5</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="customer.css">
+</head>
+<body>
+
+
+<!-- ════════════════════════════════════════════
+     LOGIN DE CLIENTE
+════════════════════════════════════════════ -->
+<div id="screen-customer-login">
+  <div class="clogin-card">
+    <div class="clogin-logo">Store<span>OS</span> <span style="font-size:13px;font-weight:400;color:var(--retail-muted)">v4.5 · Cliente</span></div>
+    <div class="clogin-sub">Selecciona cómo deseas comprar hoy</div>
+
+    <div class="ctype-grid">
+      <button class="ctype-btn active" id="ctype-retail" onclick="selectCustomerType('retail',this)">
+        <span class="ct-icon">🛍️</span>
+        <span class="ct-label">Comprador detalle</span>
+        <span class="ct-sub">Catálogo, precios y promociones</span>
+      </button>
+      <button class="ctype-btn" id="ctype-wholesale" onclick="selectCustomerType('wholesale',this)">
+        <span class="ct-icon">🏭</span>
+        <span class="ct-label">Comprador mayorista</span>
+        <span class="ct-sub">Inventario completo y pedidos en línea</span>
+      </button>
+    </div>
+
+    <div class="clogin-form-group">
+      <label>Usuario / correo</label>
+      <input type="text" placeholder="cliente@empresa.gt" value="comercial.lopez@gt">
+    </div>
+    <div class="clogin-form-group">
+      <label>Contraseña</label>
+      <input type="password" value="••••••••">
+    </div>
+    <button class="btn-clogin" id="clogin-btn" onclick="customerLogin()">
+      Ver catálogo →
+    </button>
+    <div class="back-to-main" onclick="window.history.back()">
+      ← Volver al sistema principal
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     APP CLIENTE
+════════════════════════════════════════════ -->
+<div id="app-customer" class="store-app retail" style="display:none">
+
+  <!-- TOPBAR -->
+  <div class="store-topbar retail" id="store-topbar">
+    <div class="store-logo">🛒 La Tienda</div>
+    <nav class="store-nav" id="store-nav">
+      <!-- Generado por JS según tipo -->
+    </nav>
+    <input class="store-search" placeholder="🔍 Buscar productos…" style="margin-left:auto">
+    <span class="store-type-badge" id="store-type-badge">🛍️ Detalle</span>
+    <button class="store-cart" onclick="customerLogout()">
+      🛒 Carrito
+      <div class="cart-count" id="cart-badge">0</div>
+    </button>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PANEL: DETALLE
+  ══════════════════════════════════════ -->
+  <div class="store-panel active" id="panel-retail">
+
+    <!-- Tab: Catálogo -->
+    <div class="retail-tab-panel active" id="tab-catalogo">
+      <div class="retail-main">
+
+        <!-- Banner hero de promoción -->
+        <div class="promo-hero">
+          <div>
+            <h2>🔥 Semana de descuentos</h2>
+            <p>Encuentra los mejores precios en productos de primera necesidad. Ofertas válidas hasta el 20 de marzo.</p>
+          </div>
+          <div class="promo-hero-badge">
+            -15%
+            <div>en productos seleccionados</div>
+          </div>
+        </div>
+
+        <!-- Promociones destacadas -->
+        <div class="retail-section-title">
+          ⭐ Promociones de hoy <span>· 3 ofertas activas</span>
+        </div>
+        <div class="promo-row" style="margin-bottom:32px">
+          <div class="promo-card featured">
+            <div class="pc-icon">🫙</div>
+            <div>
+              <div class="pc-badge">-10% hoy</div>
+              <div class="pc-name">Aceite Ideal 1L</div>
+              <div class="pc-desc">Aceite vegetal para frituras. Sin colesterol. Botella de 1 litro.</div>
+              <div class="pc-price">
+                <span class="pc-original">Q 42.50</span>
+                <span class="pc-final">Q 38.50</span>
+              </div>
+            </div>
+          </div>
+          <div class="promo-card featured">
+            <div class="pc-icon">🏷️</div>
+            <div>
+              <div class="pc-badge">-15% promo</div>
+              <div class="pc-name">Harina Maseca 1kg</div>
+              <div class="pc-desc">Harina de maíz nixtamalizado. Para tortillas, tamales y pupusas.</div>
+              <div class="pc-price">
+                <span class="pc-original">Q 14.00</span>
+                <span class="pc-final">Q 11.90</span>
+              </div>
+            </div>
+          </div>
+          <div class="promo-card">
+            <div class="pc-icon">☕</div>
+            <div>
+              <div class="pc-badge new">Nuevo</div>
+              <div class="pc-name">Café Montaña 250g</div>
+              <div class="pc-desc">Café guatemalteco molido. Huehuetenango, tueste medio. 250g.</div>
+              <div class="pc-price">
+                <span class="pc-final">Q 28.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Catálogo completo -->
+        <div class="retail-section-title">🛒 Catálogo de productos</div>
+        <div class="retail-pills" style="margin-bottom:20px">
+          <div class="retail-pill active">Todos</div>
+          <div class="retail-pill">🌾 Granos</div>
+          <div class="retail-pill">🫙 Aceites</div>
+          <div class="retail-pill">🧼 Higiene</div>
+          <div class="retail-pill">☕ Bebidas</div>
+          <div class="retail-pill">🕯️ Velas</div>
+          <div class="retail-pill">🧂 Condimentos</div>
+        </div>
+
+        <div class="retail-product-grid">
+
+          <!-- Agotado -->
+          <div class="retail-product-card out-of-stock">
+            <div class="rp-img">🌾</div>
+            <div class="rp-info">
+              <div class="rp-name">Azúcar 50lb</div>
+              <div class="rp-cat">Granos · Guatelinda</div>
+              <div class="rp-desc">Azúcar blanca refinada. Saco de 50 libras. Ideal para hogar o negocio.</div>
+              <div class="rp-footer">
+                <div class="rp-price-wrap"><div class="rp-price">Q 120.00</div></div>
+                <button class="btn-add-retail" disabled>❌ Agotado</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Con descuento + recomendado -->
+          <div class="retail-product-card featured">
+            <div class="rp-img">🫙</div>
+            <div class="rp-info">
+              <div class="rp-badge">-10% hoy</div>
+              <div class="rp-name">Aceite Ideal 1L</div>
+              <div class="rp-cat">Aceites · Ideal</div>
+              <div class="rp-desc">Aceite vegetal para frituras y ensaladas. Sin colesterol. 1 litro.</div>
+              <div class="rp-footer">
+                <div class="rp-price-wrap">
+                  <div class="rp-original">Q 42.50</div>
+                  <div class="rp-price">Q 38.50</div>
+                </div>
+                <button class="btn-add-retail">+ Agregar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="retail-product-card">
+            <div class="rp-img">🍚</div>
+            <div class="rp-info">
+              <div class="rp-name">Arroz Brillante 1lb</div>
+              <div class="rp-cat">Granos · Brillante</div>
+              <div class="rp-desc">Arroz blanco grano largo. Cocción perfecta garantizada. 1 libra.</div>
+              <div class="rp-footer">
+                <div class="rp-price-wrap"><div class="rp-price">Q 7.50</div></div>
+                <button class="btn-add-retail">+ Agregar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="retail-product-card">
+            <div class="rp-img">🫘</div>
+            <div class="rp-info">
+              <div class="rp-name">Frijol negro 1lb</div>
+              <div class="rp-cat">Granos · Sin marca</div>
+              <div class="rp-desc">Frijol negro selecto. Grano limpio y uniforme. Bolsa de 1 libra.</div>
+              <div class="rp-footer">
+                <div class="rp-price-wrap"><div class="rp-price">Q 9.00</div></div>
+                <button class="btn-add-retail">+ Agregar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="retail-product-card">
+            <div class="rp-img">🧼</div>
+            <div class="rp-info">
+              <div class="rp-name">Jabón Dove 90g</div>
+              <div class="rp-cat">Higiene · Dove</div>
+              <div class="rp-desc">Jabón de tocador con crema humectante. Suave para todo tipo de piel. 90g.</div>
+              <div class="rp-footer">
+                <div class="rp-price-wrap"><div class="rp-price">Q 18.00</div></div>
+                <button class="btn-add-retail">+ Agregar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="retail-product-card">
+            <div class="rp-img">☕</div>
+            <div class="rp-info">
+              <div class="rp-badge new-badge">Nuevo</div>
+              <div class="rp-name">Café Montaña 250g</div>
+              <div class="rp-cat">Bebidas · Montaña</div>
+              <div class="rp-desc">Café guatemalteco molido. Origen Huehuetenango. Tueste medio. 250g.</div>
+              <div class="rp-footer">
+                <div class="rp-price-wrap"><div class="rp-price">Q 28.00</div></div>
+                <button class="btn-add-retail">+ Agregar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="retail-product-card">
+            <div class="rp-img">🕯️</div>
+            <div class="rp-info">
+              <div class="rp-name">Vela San Judas 20cm</div>
+              <div class="rp-cat">Velas · Beige · Sinovela</div>
+              <div class="rp-desc">Vela decorativa San Judas. Color beige. 20 centímetros de alto.</div>
+              <div class="rp-footer">
+                <div class="rp-price-wrap"><div class="rp-price">Q 5.00</div></div>
+                <button class="btn-add-retail">+ Agregar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="retail-product-card featured">
+            <div class="rp-img" style="background:rgba(192,90,31,0.12)">🏷️</div>
+            <div class="rp-info">
+              <div class="rp-badge">-15% promo</div>
+              <div class="rp-name">Harina Maseca 1kg</div>
+              <div class="rp-cat">Harinas · Maseca</div>
+              <div class="rp-desc">Harina de maíz nixtamalizado precocida. Para tortillas, tamales y pupusas. 1kg.</div>
+              <div class="rp-footer">
+                <div class="rp-price-wrap">
+                  <div class="rp-original">Q 14.00</div>
+                  <div class="rp-price">Q 11.90</div>
+                </div>
+                <button class="btn-add-retail">+ Agregar</button>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /retail-product-grid -->
+      </div><!-- /retail-main -->
+    </div><!-- /tab-catalogo -->
+
+    <!-- Tab: Promociones -->
+    <div class="retail-tab-panel" id="tab-promos">
+      <div class="retail-main">
+        <div class="retail-section-title">🏷️ Todas las promociones activas</div>
+        <div class="promo-row">
+          <div class="promo-card featured">
+            <div class="pc-icon">🫙</div>
+            <div>
+              <div class="pc-badge">-10% · Válido hoy</div>
+              <div class="pc-name">Aceite Ideal 1L</div>
+              <div class="pc-desc">Aceite vegetal para frituras. Sin colesterol. Botella de 1 litro.</div>
+              <div class="pc-price"><span class="pc-original">Q 42.50</span><span class="pc-final">Q 38.50</span></div>
+            </div>
+          </div>
+          <div class="promo-card featured">
+            <div class="pc-icon">🏷️</div>
+            <div>
+              <div class="pc-badge">-15% · Hasta 20/03</div>
+              <div class="pc-name">Harina Maseca 1kg</div>
+              <div class="pc-desc">Harina de maíz nixtamalizado. Para tortillas y tamales. 1kg.</div>
+              <div class="pc-price"><span class="pc-original">Q 14.00</span><span class="pc-final">Q 11.90</span></div>
+            </div>
+          </div>
+          <div class="promo-card">
+            <div class="pc-icon">☕</div>
+            <div>
+              <div class="pc-badge new">Nuevo producto</div>
+              <div class="pc-name">Café Montaña 250g</div>
+              <div class="pc-desc">Café guatemalteco molido. Precio de introducción.</div>
+              <div class="pc-price"><span class="pc-final">Q 28.00</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /tab-promos -->
+
+  </div><!-- /panel-retail -->
+
+
+  <!-- ══════════════════════════════════════
+       PANEL: MAYORISTA
+  ══════════════════════════════════════ -->
+  <div class="store-panel" id="panel-wholesale">
+
+    <!-- Tab: Inventario -->
+    <div class="wholesale-tab-panel active" id="tab-inventory">
+      <div class="wholesale-main">
+
+        <!-- Hero -->
+        <div class="wholesale-hero">
+          <div>
+            <h2>Portal de compras al mayor</h2>
+            <p>Consulta el inventario completo, elige cantidades y registra tu pedido en línea sin desplazarte.</p>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div class="wh-num">3 niveles</div>
+            <div class="wh-sub">de descuento por volumen</div>
+          </div>
+        </div>
+
+        <!-- Descuentos -->
+        <div style="font-size:14px;font-weight:700;color:var(--wholesale-text);margin-bottom:12px">📦 Descuentos por volumen de compra</div>
+        <div class="discount-cards">
+          <div class="discount-card">
+            <div class="dc-qty">Desde Q 500</div>
+            <div class="dc-pct">5%</div>
+            <div class="dc-desc">Pedido básico · precio mayorista estándar</div>
+          </div>
+          <div class="discount-card">
+            <div class="dc-qty">Desde Q 2,000</div>
+            <div class="dc-pct">10%</div>
+            <div class="dc-desc">Pedido intermedio · descuento al total</div>
+          </div>
+          <div class="discount-card">
+            <div class="dc-qty">Desde Q 5,000</div>
+            <div class="dc-pct">15%</div>
+            <div class="dc-desc">Pedido grande · precio especial negociado</div>
+          </div>
+        </div>
+
+        <!-- Inventario + carrito -->
+        <div class="wholesale-layout">
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--wholesale-text);margin-bottom:12px">📋 Inventario disponible</div>
+            <div class="wholesale-filters">
+              <input placeholder="🔍 Buscar producto…" style="flex:1;min-width:180px">
+              <select>
+                <option>Todas las categorías</option>
+                <option>Granos</option><option>Aceites</option>
+                <option>Higiene</option><option>Bebidas</option>
+                <option>Velas</option><option>Condimentos</option>
+              </select>
+              <select>
+                <option>Todos los estados</option>
+                <option>🟢 Disponible</option><option>🟡 Stock bajo</option>
+              </select>
+            </div>
+
+            <div class="tbl" style="background:var(--wholesale-surface);border:1px solid var(--wholesale-border);border-radius:var(--radius);overflow:hidden">
+              <table class="tbl">
+                <thead><tr>
+                  <th>Producto</th><th>Cat.</th>
+                  <th>P. público</th><th>P. mayorista</th>
+                  <th>Stock</th><th>Cantidad</th><th></th>
+                </tr></thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Azúcar 50lb</strong><div style="font-size:11px;color:var(--wholesale-muted)">Guatelinda · Saco</div></td>
+                    <td>Granos</td>
+                    <td class="mono">Q 120.00</td>
+                    <td class="mono" style="color:var(--ok);font-weight:700">Q 108.00</td>
+                    <td><span class="stock-bar"><span class="stock-bar-fill" style="width:0%;background:var(--danger)"></span></span><span style="font-size:12px;color:var(--danger);font-weight:600"> 0 · Agotado</span></td>
+                    <td><input class="qty-input" type="number" value="0" min="0" disabled></td>
+                    <td><button class="btn-add-cart" disabled>❌</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Aceite Ideal 1L</strong><div style="font-size:11px;color:var(--wholesale-muted)">Ideal · Botella</div></td>
+                    <td>Aceites</td>
+                    <td class="mono">Q 38.50</td>
+                    <td class="mono" style="color:var(--ok);font-weight:700">Q 34.00</td>
+                    <td><span class="stock-bar"><span class="stock-bar-fill" style="width:25%;background:var(--warn)"></span></span><span style="font-size:12px;color:var(--warn);font-weight:600"> 5 · Bajo</span></td>
+                    <td><input class="qty-input" type="number" value="0" min="0" max="5"></td>
+                    <td><button class="btn-add-cart" onclick="addToCart('Aceite Ideal 1L',34.00,5)">+ Agregar</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Arroz Brillante 1lb</strong><div style="font-size:11px;color:var(--wholesale-muted)">Brillante · Libra</div></td>
+                    <td>Granos</td>
+                    <td class="mono">Q 7.50</td>
+                    <td class="mono" style="color:var(--ok);font-weight:700">Q 7.00</td>
+                    <td><span class="stock-bar"><span class="stock-bar-fill" style="width:40%;background:var(--warn)"></span></span><span style="font-size:12px;color:var(--warn);font-weight:600"> 8 · Bajo</span></td>
+                    <td><input class="qty-input" type="number" value="0" min="0" max="8"></td>
+                    <td><button class="btn-add-cart" onclick="addToCart('Arroz Brillante 1lb',7.00,8)">+ Agregar</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Jabón Dove 90g</strong><div style="font-size:11px;color:var(--wholesale-muted)">Dove · Caja 12 uds.</div></td>
+                    <td>Higiene</td>
+                    <td class="mono">Q 18.00</td>
+                    <td class="mono" style="color:var(--ok);font-weight:700">Q 15.50</td>
+                    <td><span class="stock-bar"><span class="stock-bar-fill" style="width:85%;background:var(--ok)"></span></span><span style="font-size:12px;color:var(--ok);font-weight:600"> 34 · OK</span></td>
+                    <td><input class="qty-input" type="number" value="0" min="0" max="34"></td>
+                    <td><button class="btn-add-cart" onclick="addToCart('Jabón Dove 90g',15.50,34)">+ Agregar</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sal Marina 500g</strong><div style="font-size:11px;color:var(--wholesale-muted)">Sin marca · Bolsa</div></td>
+                    <td>Condim.</td>
+                    <td class="mono">Q 4.50</td>
+                    <td class="mono" style="color:var(--ok);font-weight:700">Q 4.00</td>
+                    <td><span class="stock-bar"><span class="stock-bar-fill" style="width:100%;background:var(--ok)"></span></span><span style="font-size:12px;color:var(--ok);font-weight:600"> 52 · OK</span></td>
+                    <td><input class="qty-input" type="number" value="0" min="0" max="52"></td>
+                    <td><button class="btn-add-cart" onclick="addToCart('Sal Marina 500g',4.00,52)">+ Agregar</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Frijol negro 1lb</strong><div style="font-size:11px;color:var(--wholesale-muted)">Sin marca · Libra</div></td>
+                    <td>Granos</td>
+                    <td class="mono">Q 9.00</td>
+                    <td class="mono" style="color:var(--ok);font-weight:700">Q 8.20</td>
+                    <td><span class="stock-bar"><span class="stock-bar-fill" style="width:70%;background:var(--ok)"></span></span><span style="font-size:12px;color:var(--ok);font-weight:600"> 28 · OK</span></td>
+                    <td><input class="qty-input" type="number" value="0" min="0" max="28"></td>
+                    <td><button class="btn-add-cart" onclick="addToCart('Frijol negro 1lb',8.20,28)">+ Agregar</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Vela San Judas 20cm</strong><div style="font-size:11px;color:var(--wholesale-muted)">Sinovela · Caja 24</div></td>
+                    <td>Velas</td>
+                    <td class="mono">Q 5.00</td>
+                    <td class="mono" style="color:var(--ok);font-weight:700">Q 4.20</td>
+                    <td><span class="stock-bar"><span class="stock-bar-fill" style="width:80%;background:var(--ok)"></span></span><span style="font-size:12px;color:var(--ok);font-weight:600"> 72 · OK</span></td>
+                    <td><input class="qty-input" type="number" value="0" min="0" max="72"></td>
+                    <td><button class="btn-add-cart" onclick="addToCart('Vela San Judas 20cm',4.20,72)">+ Agregar</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Café Montaña 250g</strong><div style="font-size:11px;color:var(--wholesale-muted)">Montaña · Unidad</div></td>
+                    <td>Bebidas</td>
+                    <td class="mono">Q 28.00</td>
+                    <td class="mono" style="color:var(--ok);font-weight:700">Q 25.00</td>
+                    <td><span class="stock-bar"><span class="stock-bar-fill" style="width:95%;background:var(--ok)"></span></span><span style="font-size:12px;color:var(--ok);font-weight:600"> 19 · OK</span></td>
+                    <td><input class="qty-input" type="number" value="0" min="0" max="19"></td>
+                    <td><button class="btn-add-cart" onclick="addToCart('Café Montaña 250g',25.00,19)">+ Agregar</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div><!-- /tabla inventario -->
+
+          <!-- Carrito lateral -->
+          <div class="cart-aside">
+            <div class="cart-aside-title">🛒 Pedido en curso</div>
+            <div class="cart-empty" id="cart-empty">Agrega productos desde la tabla para armar tu pedido.</div>
+            <div id="cart-items"></div>
+            <div class="cart-total-row" id="cart-total-row" style="display:none">
+              <div>Total</div>
+              <div class="ct-val" id="cart-total-val">Q 0.00</div>
+            </div>
+            <div class="discount-applied" id="discount-msg" style="display:none"></div>
+            <button class="btn btn-primary" style="width:100%;margin-top:14px;justify-content:center"
+              onclick="showWholesaleTab('tab-pedido',document.querySelectorAll('#store-nav .store-nav-item')[1])">
+              📝 Continuar con el pedido →
+            </button>
+            <button class="btn btn-outline" style="width:100%;margin-top:8px;justify-content:center;font-size:12px"
+              onclick="cart=[];renderCart()">
+              🗑 Limpiar pedido
+            </button>
+          </div>
+
+        </div><!-- /wholesale-layout -->
+      </div><!-- /wholesale-main -->
+    </div><!-- /tab-inventory -->
+
+
+    <!-- Tab: Hacer pedido -->
+    <div class="wholesale-tab-panel" id="tab-pedido">
+      <div class="wholesale-main">
+        <div style="font-size:18px;font-weight:700;letter-spacing:-0.3px;color:var(--wholesale-text);margin-bottom:6px">📝 Registrar pedido en línea</div>
+        <div style="font-size:13px;color:var(--wholesale-muted);margin-bottom:22px">Completa los datos del pedido. No necesitas desplazarte al local.</div>
+
+        <div class="order-form-card">
+          <!-- Tabs del formulario -->
+          <div class="order-tabs">
+            <button class="order-tab active" onclick="showOrderTab('otab-datos',this)">👤 Datos del negocio</button>
+            <button class="order-tab"        onclick="showOrderTab('otab-entrega',this)">🚚 Entrega / Recogida</button>
+            <button class="order-tab"        onclick="showOrderTab('otab-resumen',this)">📋 Resumen del pedido</button>
+          </div>
+
+          <!-- Tab 1: Datos del negocio -->
+          <div class="order-tab-panel active" id="otab-datos">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <div class="fld"><label>Nombre del negocio *</label><input placeholder="Ej: Comercial López" value="Comercial López"></div>
+              <div class="fld"><label>Nombre del contacto *</label><input placeholder="Ej: Juan López" value="Juan López"></div>
+              <div class="fld"><label>Teléfono *</label><input placeholder="5555-1234" value="5555-1234"></div>
+              <div class="fld"><label>Correo electrónico</label><input type="email" placeholder="comercial@lopez.gt" value="comercial.lopez@gt"></div>
+              <div class="fld"><label>NIT</label><input placeholder="12345-6" value="12345-6"></div>
+              <div class="fld"><label>Nombre para factura</label><input placeholder="Ej: Comercial López S.A." value="Comercial López"></div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin-top:18px">
+              <button class="btn btn-primary" onclick="showOrderTab('otab-entrega',document.querySelectorAll('.order-tab')[1])">Siguiente →</button>
+            </div>
+          </div>
+
+          <!-- Tab 2: Entrega / Recogida -->
+          <div class="order-tab-panel" id="otab-entrega">
+
+            <!-- Selector de tipo -->
+            <div style="display:flex;gap:12px;margin-bottom:20px">
+              <button class="btn btn-primary delivery-type-btn" id="btn-entrega" onclick="selectDeliveryType('entrega')">
+                🚚 Entrega a domicilio
+              </button>
+              <button class="btn btn-outline delivery-type-btn" id="btn-recogida" onclick="selectDeliveryType('recogida')">
+                🏪 Recogida en local
+              </button>
+            </div>
+
+            <!-- Sección: entrega a domicilio -->
+            <div id="section-entrega">
+              <div class="order-section-title">🚚 Datos de entrega</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div class="fld full"><label>Dirección de entrega *</label><input placeholder="Zona, calle, número, referencia…"></div>
+                <div class="fld"><label>Municipio / Ciudad</label><input placeholder="Ej: Guatemala, Mixco…"></div>
+                <div class="fld"><label>Fecha preferida de entrega</label><input type="date"></div>
+                <div class="fld"><label>Franja horaria preferida</label>
+                  <select>
+                    <option>Cualquier hora</option>
+                    <option>Mañana (8:00 – 12:00)</option>
+                    <option>Tarde (12:00 – 17:00)</option>
+                    <option>Fin de día (17:00 – 19:00)</option>
+                  </select>
+                </div>
+                <div class="fld full"><label>Instrucciones adicionales de entrega</label><textarea placeholder="Ej: Timbre no funciona, llamar al llegar. Local color rojo…"></textarea></div>
+              </div>
+            </div>
+
+            <!-- Sección: recogida en local -->
+            <div id="section-recogida" style="display:none">
+              <div class="order-section-title">🏪 Datos de recogida</div>
+              <div style="background:var(--ok-light);border:1px solid #A3D4B8;border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:13px;color:var(--ok)">
+                📍 <strong>Dirección del local:</strong> 6a Avenida 12-34 Zona 1, Guatemala. Lunes a sábado de 8:00 a 18:00.
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div class="fld"><label>Fecha de recogida *</label><input type="date"></div>
+                <div class="fld"><label>Hora aproximada</label><input type="time" value="10:00"></div>
+
+                <!-- NUEVO: descripción del vehículo -->
+                <div class="fld full" style="background:var(--wholesale-bg);border:1px solid var(--wholesale-border);border-radius:8px;padding:14px">
+                  <div style="font-size:12px;font-weight:700;color:var(--customer-mid);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:12px">🚗 Descripción del vehículo (opcional)</div>
+                  <div style="font-size:12px;color:var(--wholesale-muted);margin-bottom:12px">Si llegas en vehículo, estos datos ayudan a los colaboradores a identificarte rápidamente desde el local.</div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+                    <div class="fld"><label>Marca del vehículo</label><input placeholder="Ej: Toyota, Nissan…"></div>
+                    <div class="fld"><label>Color</label><input placeholder="Ej: Blanco, Rojo…"></div>
+                    <div class="fld"><label>Número de placa</label><input placeholder="Ej: P-123ABC" style="text-transform:uppercase"></div>
+                  </div>
+                  <div class="fld" style="margin-top:12px"><label>Notas adicionales sobre el vehículo</label><input placeholder="Ej: Pickup de doble cabina, vidrios polarizados…"></div>
+                </div>
+
+                <div class="fld full"><label>Observaciones de recogida</label><textarea placeholder="Ej: Llegar por la entrada de carga, preguntar por Pedro…"></textarea></div>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;margin-top:18px">
+              <button class="btn btn-outline" onclick="showOrderTab('otab-datos',document.querySelectorAll('.order-tab')[0])">← Anterior</button>
+              <button class="btn btn-primary" onclick="showOrderTab('otab-resumen',document.querySelectorAll('.order-tab')[2])">Revisar pedido →</button>
+            </div>
+          </div>
+
+          <!-- Tab 3: Resumen -->
+          <div class="order-tab-panel" id="otab-resumen">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+              <div style="background:var(--wholesale-bg);border:1px solid var(--wholesale-border);border-radius:8px;padding:14px">
+                <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--wholesale-muted);margin-bottom:8px">👤 Negocio</div>
+                <div style="font-size:13px;font-weight:600">Comercial López</div>
+                <div style="font-size:12px;color:var(--wholesale-muted)">Juan López · 5555-1234</div>
+                <div style="font-size:12px;color:var(--wholesale-muted)">NIT: 12345-6</div>
+              </div>
+              <div style="background:var(--wholesale-bg);border:1px solid var(--wholesale-border);border-radius:8px;padding:14px">
+                <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--wholesale-muted);margin-bottom:8px">🚚 Entrega</div>
+                <div style="font-size:13px;font-weight:600">Entrega a domicilio</div>
+                <div style="font-size:12px;color:var(--wholesale-muted)">Zona 3, 6a Calle 12-45</div>
+                <div style="font-size:12px;color:var(--wholesale-muted)">Mañana, 14/03/2026</div>
+              </div>
+            </div>
+
+            <!-- Productos del pedido -->
+            <div style="background:var(--wholesale-bg);border:1px solid var(--wholesale-border);border-radius:8px;padding:14px;margin-bottom:14px">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--wholesale-muted);margin-bottom:10px">📦 Productos</div>
+              <div id="cart-summary-resumen" style="font-size:13px;color:var(--wholesale-muted)">
+                El resumen del carrito aparecerá aquí.
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--wholesale-surface);border:1px solid var(--wholesale-border);border-radius:8px">
+              <div>
+                <div style="font-size:12px;color:var(--wholesale-muted)">Total estimado del pedido</div>
+                <div style="font-size:22px;font-weight:800;font-family:'DM Mono',monospace;color:var(--customer)" id="resumen-total">Q 0.00</div>
+              </div>
+              <div style="display:flex;gap:10px">
+                <button class="btn btn-outline" onclick="showOrderTab('otab-entrega',document.querySelectorAll('.order-tab')[1])">← Anterior</button>
+                <button class="btn btn-primary" style="background:var(--ok)">✅ Confirmar y enviar pedido</button>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /order-form-card -->
+      </div>
+    </div><!-- /tab-pedido -->
+
+
+    <!-- Tab: Mis entregas -->
+    <div class="wholesale-tab-panel" id="tab-entregas">
+      <div class="wholesale-main">
+        <div style="font-size:18px;font-weight:700;letter-spacing:-0.3px;color:var(--wholesale-text);margin-bottom:6px">🚚 Seguimiento de entregas</div>
+        <div style="font-size:13px;color:var(--wholesale-muted);margin-bottom:22px">Estado actualizado de tus pedidos activos e historial reciente.</div>
+
+        <div id="deliveries-container">
+          <!-- Generado por JS -->
+        </div>
+      </div>
+    </div><!-- /tab-entregas -->
+
+  </div><!-- /panel-wholesale -->
+
+</div><!-- /app-customer -->
+
+
+<script src="customer.js"></script>
+</body>
+</html>
